@@ -10,7 +10,7 @@ const usariosGet = (req = request, res = response)=> {
                 res.json(error);
             }
             console.log(answer);
-            res.json(answer);
+            res.render('about');
         });
     });
 

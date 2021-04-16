@@ -11,6 +11,9 @@ class Server{
     constructor(){
         this.app = express();
         this.port = process.env.PORT;
+
+        // agregar path
+        this.homePath = '/home';
         this.usuariosPath = '/usuarios';
 
         // Middelewares 
@@ -34,6 +37,9 @@ class Server{
         //Directoria publico
         this.app.use( express.static('public'));
 
+        this.app.set('views', './views');
+        this.app.set('view engine', 'ejs');
+
         // conexion bd
         this.app.use(myConnection(mysql, {
             host: 'localhost',
@@ -49,28 +55,16 @@ class Server{
 
     routes(){
 
-        this.app.use(this.usuariosPath, require('../routes/usuarios'));
+        this.app.use(this.homePath,require('../routes/routeHome'));
+
+        /*
+        this.app.get('/about', (req, res)=>{
+            res.render('about');
+        });*/
 
        
     }
-
-    conexion(){        
-        let connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'gamificacion',
-        port: 3306
-        });
-        connection.connect(function(error){
-        if(error){
-            throw error;
-        }else{
-            console.log('Conexion correcta.');
-        }
-        });
-        connection.end();
-    }
+    
 
     listen(){
          

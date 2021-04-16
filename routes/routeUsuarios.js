@@ -9,7 +9,9 @@ const { usariosGet,
 const router = Router();
 
 
-router.get('/', usariosGet);
+router.get('/a', usariosGet);
+
+/*
 
 router.post('/', usariosPost);
 
@@ -18,7 +20,7 @@ router.put('/:id', usariosPut);
 router.patch('/', usariosPatch);
 
 router.delete('/', usariosDelete); 
-
+*/
 
 
 
