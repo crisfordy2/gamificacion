@@ -4,6 +4,17 @@ const {response, request} = require = require('express');
 
 const usariosGet = (req = request, res = response)=> {
 
+    req.getConnection((err,conn) =>{
+        conn.query('SELECT * FROM estudent', (error, answer) =>{
+            if(error){
+                res.json(error);
+            }
+            console.log(answer);
+            res.json(answer);
+        });
+    });
+
+    /* 
     const {nombre, apikey, pag = 10} = req.query;
 
     res.json({
@@ -11,7 +22,7 @@ const usariosGet = (req = request, res = response)=> {
         nombre,
         apikey,
         pag
-    });
+    }); */
 };
 
 const usariosPost = (req, res = response)=> {
