@@ -1,4 +1,3 @@
-
 const express = require('express')
 const cors = require('cors');
 const mysql = require('mysql');
@@ -6,9 +5,9 @@ const myConnection = require('express-myconnection');
 
 
 
-class Server{
+class Server {
 
-    constructor(){
+    constructor() {
         this.app = express();
         this.port = process.env.PORT;
 
@@ -23,10 +22,10 @@ class Server{
         //rutas de la app
         this.routes();
 
-        
+
     }
 
-    middlewares(){
+    middlewares() {
 
         //cors
         this.app.use(cors());
@@ -35,7 +34,7 @@ class Server{
         this.app.use(express.json());
 
         //Directoria publico
-        this.app.use( express.static('public'));
+        this.app.use(express.static('public'));
 
         this.app.set('views', './views');
         this.app.set('view engine', 'ejs');
@@ -49,30 +48,27 @@ class Server{
             port: 3306
 
         }, 'single'));
-
-
+        this.app.use(express.urlencoded({ extended: false }));
     }
 
-    routes(){
+    routes() {
 
-        this.app.use(this.homePath,require('../routes/routeHome'));
+        this.app.use(this.homePath, require('../routes/routeHome'));
 
         /*
         this.app.get('/about', (req, res)=>{
             res.render('about');
         });*/
-
-       
     }
-    
 
-    listen(){
-         
-        this.app.listen(this.port,()=>{
-           console.log('Servidor corriendo puerto', this.port);
+
+    listen() {
+
+        this.app.listen(this.port, () => {
+            console.log('Servidor corriendo puerto', this.port);
         });
     }
-    
+
 }
 
 module.exports = Server;

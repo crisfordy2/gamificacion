@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+</head>
+
+<body>
+
+    <h1>Registro</h1>
+
+
+    <form action="/home/addUser" method="post">
+
+        <br>
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nameEstudent" placeholder="Nombre">
+        <br>
+        <label for="apellido">Apellido:</label>
+        <input type="text" name="lastNameEstudent" placeholder="Apellido">
+        <br>
+        <label for="usuario">Usuario:</label>
+        <input type="text" name="userEstudent" placeholder="Usuario">
+        <br>
+        <label for="password">Contraseña:</label>
+        <input type="text" name="passEstudent" placeholder="Contraseña">
+        <br>
+        <label for="correo">Correo:</label>
+        <input type="text" name="emailEstudent" placeholder="Correo">
+        <br>
+        <label for="tipoUsuario">Tipo de usuario:</label>
+        <select name="tipoUsuario">
+            <option value="estudiante">Estudiante</option>
+            <option value="profesor">Profesor</option>            
+        </select>
+        <br><br>
+
+        <button type="submit"> Crear</button>
+
+
+
+    </form>
+
+</body>
+
+</html>

@@ -1,15 +1,20 @@
 
 const {Router} = require('express');
 const { homeGet,
-   usariosPost,
-    usariosPut,
-     usariosPatch,
-      usariosDelete } = require('../controllers.js/home');
+      RegistroUsuariosGet,
+      AddUserPost,
+      loguinGet } = require('../controllers.js/home');
 
 const router = Router();
 
 
 router.get('/', homeGet);
+
+router.get('/registro', RegistroUsuariosGet);
+
+router.post('/addUser', AddUserPost);
+
+router.get('/login', loguinGet);
 
 /*
 
