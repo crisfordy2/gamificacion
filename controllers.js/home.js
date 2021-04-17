@@ -24,7 +24,18 @@ const RegistroUsuariosGet = (req = request, res = response) => {
 
     res.render('registroUsuarios');
 
+};
 
+const generic = (req = request, res = response) => {
+
+    res.render('generic');
+
+};
+
+
+const RegistroUserGet = (req = request, res = response) => {
+
+    res.render('registroUser');
 
 };
 
@@ -75,5 +86,7 @@ module.exports = {
     homeGet,
     RegistroUsuariosGet,
     AddUserPost,
-    loguinGet
+    loguinGet,
+    RegistroUserGet,
+    generic
 }
