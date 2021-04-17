@@ -1,59 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-		<title>login</title>
+<!DOCTYPE HTML>
+<!--
+	Road Trip by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Elements - Road Trip by TEMPLATED</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="/assets/css/main.css" />
 	</head>
+	<body class="subpage" style="background-color:black;">
 
-<body class="subpage">
+		<!-- Header -->
+		<header id="header" class="alt">
+			<div class="logo"><a href="/home"> Gamificación <span>DevOps</span></a></div>
+			<a href="#menu"><span>Menu</span></a>
+		</header>
 
-        <!-- Header -->
-        <header id="header" class="alt">
-            <div class="logo"><a href="/home"> Gamificación <span>DevOps</span></a></div>
-            <a href="#menu"><span>Menu</span></a>
-        </header>
+		<!-- Nav -->
+		<nav id="menu">
+			<ul class="links">
+				<li><a href="/home">Home</a></li>
+				<li><a href="/home/login">Login</a></li>
+				<li><a href="/home/registro">Registro</a></li>
+			</ul>
+		</nav>
 
-        <!-- Nav -->
-        <nav id="menu">
-            <ul class="links">
-                <li><a href="/home">Home</a></li>
-                <li><a href="/home/login">Login</a></li>
-                <li><a href="/home/registro">Registro</a></li>
-            </ul>
-        </nav>
+		<!-- Main -->
+			<div id="main" class="container">
 
+				<footer id="footer" style="background-color: gray;">
+					<div class="inner">            
+			 
+					<h1 style="text-align: center; font-size: 25px;">Login</h1>
+			 
+			 
+					 <form action="/home/loginUser" method="post">
+			 
+						 <br>
+						 <label for="userEstudent">Usuario:</label>
+						 <input type="text" name="userEstudent" placeholder="Usuario">
+						 <br>
+						 <label for="passEstudent">Contraseña:</label>
+						 <input type="text" name="passEstudent" placeholder="Contraseña">
+						 <br>
+			 
+						 <button type="submit"> Iniciar sesion</button>           
+			 
+					 </form>
+			 
+					 </div>
+				 </footer> 
 
-    <footer id="footer">
-	   <div class="inner">            
+				
+			</div>
 
-       <h1 style="text-align: center; font-size: 25px;">Login</h1>
+            <pre style="background-color: white; color: black;" >
+				<%= mensaje %>
+			</pre>		
+	
 
+	
 
-        <form action="/home/addUser" method="post">
-
-            <br>
-            <label for="userEstudent">Usuario:</label>
-            <input type="text" name="userEstudent" placeholder="Usuario">
-            <br>
-            <label for="passEstudent">Contraseña:</label>
-            <input type="text" name="passEstudent" placeholder="Contraseña">
-            <br>
-
-            <button type="submit"> Iniciar sesion</button>           
-
-        </form>
-
-        </div>
-    </footer> 
-
-    <pre>
-        <%= mensaje %>
-    </pre>
-    
-    <!-- Scripts -->
+		<!-- Scripts -->
 			<script src="/assets/js/jquery.min.js"></script>
 			<script src="/assets/js/jquery.scrolly.min.js"></script>
 			<script src="/assets/js/jquery.scrollex.min.js"></script>
@@ -61,6 +72,5 @@
 			<script src="/assets/js/util.js"></script>
 			<script src="/assets/js/main.js"></script>
 
-</body>
-
+	</body>
 </html>

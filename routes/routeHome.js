@@ -5,7 +5,8 @@ const { homeGet,
       AddUserPost,
       loguinGet,      
       generic,
-      prueba } = require('../controllers.js/home');
+      prueba,
+      loginUser } = require('../controllers.js/home');
 
 const router = Router();
 
@@ -22,7 +23,7 @@ router.get('/generic', generic);
 
 router.get('/prueba', prueba);
 
-
+router.post('/loginUser', loginUser);
 
 
 

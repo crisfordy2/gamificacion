@@ -34,22 +34,37 @@
 				<footer id="footer" style="background-color: gray;">
 					<div class="inner">            
 			 
-					<h1 style="text-align: center; font-size: 25px;">Login</h1>
-			 
-			 
-					 <form action="/home/addUser" method="post">
-			 
-						 <br>
-						 <label for="userEstudent">Usuario:</label>
-						 <input type="text" name="userEstudent" placeholder="Usuario">
-						 <br>
-						 <label for="passEstudent">Contraseña:</label>
-						 <input type="text" name="passEstudent" placeholder="Contraseña">
-						 <br>
-			 
-						 <button type="submit"> Iniciar sesion</button>           
-			 
-					 </form>
+						<h1  style="text-align: center; font-size: 25px;">Registro</h1>
+
+
+						<form action="/home/addUser" method="post">
+				
+							<br>
+							<label for="nameEstudent">Nombre:</label>
+							<input type="text" name="nameEstudent" placeholder="Nombre">
+							<br>
+							<label for="lastNameEstudent">Apellido:</label>
+							<input type="text" name="lastNameEstudent" placeholder="Apellido">
+							<br>
+							<label for="userEstudent">Usuario:</label>
+							<input type="text" name="userEstudent" placeholder="Usuario">
+							<br>
+							<label for="passEstudent">Contraseña:</label>
+							<input type="text" name="passEstudent" placeholder="Contraseña">
+							<br>
+							<label for="emailEstudent">Correo:</label>
+							<input type="text" name="emailEstudent" placeholder="Correo">
+							<br>
+							<label for="typeUser">Tipo de usuario:</label>
+							<select name="typeUser">
+								<option value="estudiante">Estudiante</option>
+								<option value="profesor">Profesor</option>            
+							</select>
+							<br><br>
+				
+							<button type="submit"> Crear</button>           
+				
+						</form>
 			 
 					 </div>
 				 </footer> 
@@ -57,6 +72,12 @@
 				
 			</div>
 
+			<pre style="background-color: white; color: black;" >
+				<%= mensaje %>
+			</pre>
+
+
+			
 	
 
 		<!-- Scripts -->
