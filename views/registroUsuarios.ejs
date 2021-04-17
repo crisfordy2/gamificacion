@@ -1,48 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-</head>
+    <head>
+		<title>Generic - Road Trip by TEMPLATED</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+	</head>
 
-<body>
+<body class="subpage">
 
-    <h1>Registro</h1>
+    <!-- Header -->
+			<header id="header" class="alt">
+				<div class="logo"><a href="index.html">Road Trip <span>by TEMPLATED</span></a></div>
+				<a href="#menu"><span>Menu</span></a>
+			</header>
 
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="generic.html">Generic</a></li>
+					<li><a href="elements.html">Elements</a></li>
+				</ul>
+			</nav>
 
-    <form action="/home/addUser" method="post">
+    <footer id="footer">
+	   <div class="inner">            
 
-        <br>
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nameEstudent" placeholder="Nombre">
-        <br>
-        <label for="apellido">Apellido:</label>
-        <input type="text" name="lastNameEstudent" placeholder="Apellido">
-        <br>
-        <label for="usuario">Usuario:</label>
-        <input type="text" name="userEstudent" placeholder="Usuario">
-        <br>
-        <label for="password">Contraseña:</label>
-        <input type="text" name="passEstudent" placeholder="Contraseña">
-        <br>
-        <label for="correo">Correo:</label>
-        <input type="text" name="emailEstudent" placeholder="Correo">
-        <br>
-        <label for="tipoUsuario">Tipo de usuario:</label>
-        <select name="tipoUsuario">
-            <option value="estudiante">Estudiante</option>
-            <option value="profesor">Profesor</option>            
-        </select>
-        <br><br>
-
-        <button type="submit"> Crear</button>
+       <h1>Registro</h1>
 
 
+        <form action="/home/addUser" method="post">
 
-    </form>
+            <br>
+            <label for="nameEstudent">Nombre:</label>
+            <input type="text" name="nameEstudent" placeholder="Nombre">
+            <br>
+            <label for="lastNameEstudent">Apellido:</label>
+            <input type="text" name="lastNameEstudent" placeholder="Apellido">
+            <br>
+            <label for="userEstudent">Usuario:</label>
+            <input type="text" name="userEstudent" placeholder="Usuario">
+            <br>
+            <label for="passEstudent">Contraseña:</label>
+            <input type="text" name="passEstudent" placeholder="Contraseña">
+            <br>
+            <label for="emailEstudent">Correo:</label>
+            <input type="text" name="emailEstudent" placeholder="Correo">
+            <br>
+            <label for="typeUser">Tipo de usuario:</label>
+            <select name="typeUser">
+                <option value="estudiante">Estudiante</option>
+                <option value="profesor">Profesor</option>            
+            </select>
+            <br><br>
+
+            <button type="submit"> Crear</button>           
+
+        </form>
+
+        </div>
+    </footer> 
+    
+    <!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/skel.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
 
 </body>
 

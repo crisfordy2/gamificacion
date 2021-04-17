@@ -33,6 +33,12 @@ const generic = (req = request, res = response) => {
 };
 
 
+const prueba = (req = request, res = response) => {
+
+    res.render('prueba');
+
+};
+
 const RegistroUserGet = (req = request, res = response) => {
 
     res.render('registroUser');
@@ -51,9 +57,8 @@ const AddUserPost = (req = request, res = response) => {
 
     
 
-    if (data.tipoUsuario == 'estudiante') {
-        const consulta = "INSERT INTO estudent SET ?";
-        delete data.tipoUsuario;
+    if (data.typeUser == 'estudiante') {
+        const consulta = "INSERT INTO estudent SET ?";        
         console.log(data);
         req.getConnection((err, conn) => {
                 conn.query(consulta, [data] , (error, answer) => {
@@ -65,9 +70,8 @@ const AddUserPost = (req = request, res = response) => {
                 });
             });
 
-    } else if (data.tipoUsuario == 'profesor') {
-        const consulta = "INSERT INTO teacher SET ?";
-        delete data.tipoUsuario;
+    } else if (data.typeUser == 'profesor') {
+        const consulta = "INSERT INTO teacher SET ?";        
         console.log(data);
         req.getConnection((err, conn) => {
                 conn.query(consulta, [data] , (error, answer) => {
@@ -88,5 +92,6 @@ module.exports = {
     AddUserPost,
     loguinGet,
     RegistroUserGet,
-    generic
+    generic,
+    prueba
 }
