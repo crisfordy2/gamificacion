@@ -22,13 +22,15 @@ const homeGet = (req = request, res = response) => {
 
 const RegistroUsuariosGet = (req = request, res = response) => {
 
-    res.render('registroUsuarios');
+    res.render('registroUsuarios',{
+        mensaje:''
+    });
 
 };
 
 const generic = (req = request, res = response) => {
 
-    res.render('generic');
+    res.render('elements');
 
 };
 
@@ -39,50 +41,32 @@ const prueba = (req = request, res = response) => {
 
 };
 
-const RegistroUserGet = (req = request, res = response) => {
-
-    res.render('registroUser');
-
-};
 
 const loguinGet = (req = request, res = response) => {
 
-    res.render('login');
+    res.render('login',{
+        mensaje:''
+    });
 
 };
 
 const AddUserPost = (req = request, res = response) => {
 
-    const data = req.body;
-
+    const data = req.body;    
     
-
-    if (data.typeUser == 'estudiante') {
-        const consulta = "INSERT INTO estudent SET ?";        
-        console.log(data);
-        req.getConnection((err, conn) => {
-                conn.query(consulta, [data] , (error, answer) => {
-                    if (error) {
-                        res.json(error);
-                    }
-                    console.log(answer);
-                    res.send('Se ha creado un estudiante con éxito!');                    
-                });
-            });
-
-    } else if (data.typeUser == 'profesor') {
-        const consulta = "INSERT INTO teacher SET ?";        
-        console.log(data);
-        req.getConnection((err, conn) => {
-                conn.query(consulta, [data] , (error, answer) => {
-                    if (error) {
-                        res.json(error);
-                    }
-                    console.log(answer);
-                    res.send('Se ha creado un estudiante con éxito!');                    
-                });
-            });
-    }
+    const consulta = "INSERT INTO estudent SET ?";        
+    console.log(data);
+    req.getConnection((err, conn) => {
+        conn.query(consulta, [data] , (error, answer) => {
+        if (error) {
+            res.json(error);
+        }
+        console.log(answer);
+        res.render('registroUsuarios', {
+            mensaje: 'Se ha creado el usuario con éxito!'
+           });        
+        });
+    });    
 };
 
 
@@ -90,8 +74,7 @@ module.exports = {
     homeGet,
     RegistroUsuariosGet,
     AddUserPost,
-    loguinGet,
-    RegistroUserGet,
+    loguinGet,    
     generic,
     prueba
 }

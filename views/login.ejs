@@ -1,72 +1,66 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - $ECOINS</title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <!-- Font awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"></script>
-    <!-- Animated CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <!-- Select2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
-    <!-- CSS Styles -->
-    <link rel="stylesheet" href="/assets/css/util.css" />
-    <link rel="stylesheet" href="/assets/css/main2.css" />
-    <link rel="stylesheet" href="/assets/css/media-queries.css" />
-  </head>
-  <body>
-    <div class="limiter">
-      <div class="container-login100">
-        <div class="wrap-login100">
-          <div class="login100-pic js-tilt" data-tilt>
-            <img src="https://colorlib.com/etc/lf/Login_v1/images/img-01.png" alt="" />
-          </div>
-          <form action="#" class="login100-form validate-form">
-            <span class="login100-form-title">Acceso</span>
-            <div class="wrap-input100 validate-input" data-validate="Email es requerido: ej@gmail.com">
-              <input type="text" name="email" class="input100" placeholder="Email" />
-              <span class="focus-input100"></span>
-              <span class="symbol-input100">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-              </span>
-            </div>
-            <div class="wrap-input100 validate-input" data-validate="Se requiere la contraseña">
-              <input type="password" class="input100" name="pass" placeholder="Contraseña" />
-              <span class="focus-input100"></span>
-              <span class="symbol-input100">
-                <i class="fa fa-lock" aria-hidden="true"></i>
-              </span>
-            </div>
-            <div class="container-login100-form-btn">
-              <button class="login100-form-btn">Acceder</button>
-            </div>
-            <div class="text-center p-t-12">
-              <span class="txt1">¿Olvidaste</span>
-              <a href="#" class="txt2">Usuario o Contraseña?</a>
-            </div>
-            <div class="text-center p-t-36">
-              <a href="#" class="txt2">
-                Crear cuenta
-                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-              </a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+<html lang="en">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.0.3/tilt.jquery.min.js"></script>
-    <script>
-      $(".js-tilt").tilt({ scale: 1.1 });
-    </script>
-    <script src="/assets/js/main2.js"></script>
-  </body>
+    <head>
+		<title>login</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+	</head>
+
+<body class="subpage">
+
+        <!-- Header -->
+        <header id="header" class="alt">
+            <div class="logo"><a href="/home"> Gamificación <span>DevOps</span></a></div>
+            <a href="#menu"><span>Menu</span></a>
+        </header>
+
+        <!-- Nav -->
+        <nav id="menu">
+            <ul class="links">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/home/login">Login</a></li>
+                <li><a href="/home/registro">Registro</a></li>
+            </ul>
+        </nav>
+
+
+    <footer id="footer">
+	   <div class="inner">            
+
+       <h1 style="text-align: center; font-size: 25px;">Login</h1>
+
+
+        <form action="/home/addUser" method="post">
+
+            <br>
+            <label for="userEstudent">Usuario:</label>
+            <input type="text" name="userEstudent" placeholder="Usuario">
+            <br>
+            <label for="passEstudent">Contraseña:</label>
+            <input type="text" name="passEstudent" placeholder="Contraseña">
+            <br>
+
+            <button type="submit"> Iniciar sesion</button>           
+
+        </form>
+
+        </div>
+    </footer> 
+
+    <pre>
+        <%= mensaje %>
+    </pre>
+    
+    <!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/skel.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+</body>
+
 </html>

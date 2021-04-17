@@ -3,8 +3,7 @@ const {Router} = require('express');
 const { homeGet,
       RegistroUsuariosGet,
       AddUserPost,
-      loguinGet,
-      RegistroUserGet,
+      loguinGet,      
       generic,
       prueba } = require('../controllers.js/home');
 
@@ -14,8 +13,6 @@ const router = Router();
 router.get('/', homeGet);
 
 router.get('/registro', RegistroUsuariosGet);
-
-router.get('/registroUser', RegistroUserGet);
 
 router.post('/addUser', AddUserPost);
 
