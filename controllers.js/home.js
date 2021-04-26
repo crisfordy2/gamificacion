@@ -37,16 +37,18 @@ const generic = (req = request, res = response) => {
 };
 
 
-const prueba = (req = request, res = response) => {
-
-    res.render('prueba');
-
-};
-
 
 const loguinGet = (req = request, res = response) => {
 
     res.render('login',{
+        mensaje:''
+    });
+
+};
+
+const contacto = (req = request, res = response) => {
+
+    res.render('contacto',{
         mensaje:''
     });
 
@@ -57,7 +59,7 @@ const loginUser = (req = request, res = response) => {
 
     const data = req.body;            
 
-    const consulta = `SELECT * FROM estudent WHERE userEstudent = "${data.userEstudent}" and passEstudent = "${data.passEstudent}"`;  
+    const consulta = `SELECT * FROM users WHERE userUser = "${data.userUser}" and passUser = "${data.passUser}"`;  
     
     
     req.getConnection((err, conn) => {
@@ -77,9 +79,17 @@ const loginUser = (req = request, res = response) => {
 
             console.log(answer[0]);
 
-            res.render('userLogin',{
-                mensaje: answer[0].nameEstudent
-            }); 
+            if(answer[0].typeUser == 'profesor'){
+                res.render('userProfe',{
+                    mensaje: answer[0].nameUser
+                });
+            }else{
+                res.render('userEstu',{
+                    mensaje: answer[0].nameUser
+                });
+            }
+
+             
 
         }                
               
@@ -93,7 +103,7 @@ const AddUserPost = (req = request, res = response) => {
 
     const data = req.body;    
     
-    const consulta = "INSERT INTO estudent SET ?";        
+    const consulta = "INSERT INTO users SET ?";        
     
     req.getConnection((err, conn) => {
         conn.query(consulta, [data] , (error, answer) => {
@@ -113,7 +123,7 @@ module.exports = {
     RegistroUsuariosGet,
     AddUserPost,
     loguinGet,    
-    generic,
-    prueba,
-    loginUser
+    generic,    
+    loginUser,
+    contacto
 }
