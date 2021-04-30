@@ -46,6 +46,16 @@ const loguinGet = (req = request, res = response) => {
 
 };
 
+
+
+const crearCurso = (req = request, res = response) => {
+
+    res.render('crearCurso',{
+        mensaje:''
+    });
+
+};
+
 const contacto = (req = request, res = response) => {
 
     res.render('contacto',{
@@ -81,7 +91,8 @@ const loginUser = (req = request, res = response) => {
 
             if(answer[0].typeUser == 'profesor'){
                 res.render('userProfe',{
-                    mensaje: answer[0].nameUser
+                    mensaje: answer[0].nameUser,
+                    idUser: answer[0].idUser
                 });
             }else{
                 res.render('userEstu',{
@@ -125,5 +136,6 @@ module.exports = {
     loguinGet,    
     generic,    
     loginUser,
-    contacto
+    contacto,
+    crearCurso
 }

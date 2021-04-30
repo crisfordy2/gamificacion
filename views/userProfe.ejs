@@ -4,11 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/assets/css/estilosHomeProfe.css">
+    <title>HomeProfesor</title>
 </head>
-<body>
 
-    <h1>Bienvenido Profesor <span style="color: brown;"><%= mensaje %></span></h1>
+<body>
+    <header>
+        <div id="header-icon">
+            <p id="titulo">Gamificación Profesor <%= mensaje %> <%= idUser %></p>
+            <div id="marco-icono">
+                <img src="/images/iconoHomeUser.svg" alt="imagen" id="icono">
+            </div>
+        </div>
+
+        <div id="header-button">
+            <form action="/home/crearCurso" method="POST">
+                <button type="submit">Nuevo curso</button>
+            </form>
+            
+        </div>
+
+       
+    </header>
+
+    <section id="contenido">
+
+        <div id="segmento-inicio">
+
+            <h1>Cursos</h1>
+
+        </div>
+
+        
+
+
+    </section>
+
+
+
+    
     
   
 </body>

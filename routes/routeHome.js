@@ -6,7 +6,8 @@ const { homeGet,
       loguinGet,      
       generic,
       contacto,      
-      loginUser } = require('../controllers.js/home');
+      loginUser,
+      crearCurso } = require('../controllers.js/home');
 
 const router = Router();
 
@@ -24,6 +25,8 @@ router.get('/generic', generic);
 router.get('/contacto', contacto);
 
 router.post('/loginUser', loginUser);
+
+router.post('/crearCurso', crearCurso);
 
 
 

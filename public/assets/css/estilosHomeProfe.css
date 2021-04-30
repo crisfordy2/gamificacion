@@ -1,0 +1,50 @@
+* {
+    padding: 0%;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+header {
+    position: fixed;
+    height: 7%;
+    width: 100%;
+    background-color: #00CED1;
+    display: flex;
+    z-index: 1;
+    align-items: center;
+    justify-content:center;
+}
+
+#contenido {
+    width: 100%;
+    height: 100vh;
+    background-color: blue;
+}
+
+#segmento-inicio {
+    display: flex;
+    padding-top: 9vh;
+}
+
+#header-icon {    
+    display: flex;
+    align-items: center;
+    justify-content:center;       
+    margin-left: 35vw;   
+}
+
+#icono {
+    width: 3vw;
+    height: 5vh;
+}
+
+#titulo{
+    font-size: 1.6em;
+}
+
+#header-button{
+    /* Si se va a editar el margin left hay que editar tambien el marginleft de #header-icon*/
+    margin-left: 35vw;   
+
+}
