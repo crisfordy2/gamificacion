@@ -31,12 +31,21 @@
 
         <div id="segmento-inicio">
 
-            <h1>Cursos</h1>
-
-
-            <button>mostrar cursos</button>
-
-            <span><%= objeto %></span>
+            <h1>Cursos</h1>           
+            
+            <form action="/home/mostrarCurso" method="post" id="lol" name="lol">
+                <input type="text" name="idUser" id="idUser" style="opacity: 0;">
+                <button type="submit" >enviar</button>
+                
+            </form>
+            
+            <pre>
+                <% if (objeto.nameClass != "") { %>
+                    <% for (var i = 0; i < objeto.length; i++) { %>
+                        <%= objeto[i].nameClass %>                      
+                    <% } %>    
+                <% } %>
+            </pre>
 
 
 
@@ -53,6 +62,14 @@
     <script>
         sessionStorage.setItem("id", "<%= idUser %>");        
         sessionStorage.setItem("nombre", "<%= nombre %>");
+        document.getElementById("idUser").value = sessionStorage.getItem("id");      
+        
+        
+        /*
+        window.onload = function(){
+        document.lol.submit();
+        };*/
+        
     </script>
   
 </body>

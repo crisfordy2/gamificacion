@@ -71,6 +71,13 @@ const loginUser = (req = request, res = response) => {
 
     const consulta = `SELECT * FROM users WHERE userUser = "${data.userUser}" and passUser = "${data.passUser}"`;  
     
+    const objeto = {  idClass: '',
+        nameClass: '',
+        idUser: '',
+        codeClass: '',
+        passClass: ''}
+
+    console.log("aqui nameclass", objeto.nameClass);
     
     req.getConnection((err, conn) => {
         conn.query(consulta, (error, answer) => {
@@ -94,8 +101,7 @@ const loginUser = (req = request, res = response) => {
                     res.render('userProfe',{
                         nombre: answer[0].nameUser,
                         idUser: answer[0].idUser,
-                        objeto: objectoClases(answer[0].idUser,req,res)
-
+                        objeto                       
                     });
                 }else{
                     res.render('userEstu',{
@@ -166,11 +172,17 @@ function objectoClases(id) {
 
 
 // prueba metodo local
-const objectoClases = (id, req, res ) => {  
+
+
+const objectoClases = (req = request, res = response) => {      
+
+    const data = req.body; 
+    console.log("data aqui:",data.idUser);
     
 
 
-    const consulta = `SELECT * FROM users`;  
+    const consulta = `SELECT * FROM class WHERE idUser = ${data.idUser}`;  
+    //const consulta = `SELECT * FROM class WHERE idUser = 2`;  
     
     
     req.getConnection((err, conn) => {
@@ -182,9 +194,15 @@ const objectoClases = (id, req, res ) => {
             }
 
             console.log(answer);
-            return answer;
-              
+           
+            
+            res.render('userProfe',{
+                nombre: "jorge",
+                idUser: 2,
+                objeto: answer
+            });
         });
+       
     });
 
 };
@@ -200,5 +218,7 @@ module.exports = {
     loginUser,
     contacto,
     crearCurso,
-    addCurso
+    addCurso,
+    objectoClases
+    
 }
