@@ -74,36 +74,38 @@ const loginUser = (req = request, res = response) => {
     
     req.getConnection((err, conn) => {
         conn.query(consulta, (error, answer) => {
-        if (error) {
-            res.render('login',{
-                mensaje:'Error de servidor'
-            });            
-        }      
+            if (error) {
+                res.render('login',{
+                    mensaje:'Error de servidor'
+                });            
+            }      
 
-        if(answer.length == 0){
-            res.render('login',{
-                mensaje:'Error de autenticación'
-            });
-
-        }else{
-
-            console.log(answer[0]);
-
-            if(answer[0].typeUser == 'profesor'){
-                res.render('userProfe',{
-                    mensaje: answer[0].nameUser,
-                    idUser: answer[0].idUser
+            if(answer.length == 0){
+                res.render('login',{
+                    mensaje:'Error de autenticación'
                 });
+
             }else{
-                res.render('userEstu',{
-                    mensaje: answer[0].nameUser
-                });
-            }
+
+                //console.log(answer[0]);
+
+                if(answer[0].typeUser == 'profesor'){
+
+                    res.render('userProfe',{
+                        nombre: answer[0].nameUser,
+                        idUser: answer[0].idUser,
+                        objeto: objectoClases(answer[0].idUser,req,res)
+
+                    });
+                }else{
+                    res.render('userEstu',{
+                        nombre: answer[0].nameUser
+                    });
+                }
 
              
 
-        }                
-              
+            }      
         });
     });    
 };
@@ -129,6 +131,66 @@ const AddUserPost = (req = request, res = response) => {
 };
 
 
+const addCurso = (req = request, res = response) => {
+
+    const data = req.body;          
+
+    console.log(data);
+
+    const nombre = data.nombreProfe;
+
+    delete data.nombreProfe;
+    
+    
+    const consulta = "INSERT INTO class SET ?";        
+    
+    req.getConnection((err, conn) => {
+        conn.query(consulta, [data] , (error, answer) => {
+        if (error) {
+            res.json(error);
+        }        
+        res.render('userProfe',{
+            nombre,
+            idUser: data.idUser
+        });
+        console.log("answer", answer);
+        });
+    });    
+    
+};
+
+/*
+function objectoClases(id) {
+
+}*/
+
+
+// prueba metodo local
+const objectoClases = (id, req, res ) => {  
+    
+
+
+    const consulta = `SELECT * FROM users`;  
+    
+    
+    req.getConnection((err, conn) => {
+        conn.query(consulta, (error, answer) => {
+            if (error) {
+                res.json({
+                    error
+                });            
+            }
+
+            console.log(answer);
+            return answer;
+              
+        });
+    });
+
+};
+
+
+
 module.exports = {
     homeGet,
     RegistroUsuariosGet,
@@ -137,5 +199,6 @@ module.exports = {
     generic,    
     loginUser,
     contacto,
-    crearCurso
+    crearCurso,
+    addCurso
 }

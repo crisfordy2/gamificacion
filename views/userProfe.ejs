@@ -11,7 +11,7 @@
 <body>
     <header>
         <div id="header-icon">
-            <p id="titulo">Gamificación Profesor <%= mensaje %> <%= idUser %></p>
+            <p id="titulo">Gamificación Profesor <%= nombre %> </p>
             <div id="marco-icono">
                 <img src="/images/iconoHomeUser.svg" alt="imagen" id="icono">
             </div>
@@ -33,6 +33,13 @@
 
             <h1>Cursos</h1>
 
+
+            <button>mostrar cursos</button>
+
+            <span><%= objeto %></span>
+
+
+
         </div>
 
         
@@ -43,7 +50,10 @@
 
 
     
-    
+    <script>
+        sessionStorage.setItem("id", "<%= idUser %>");        
+        sessionStorage.setItem("nombre", "<%= nombre %>");
+    </script>
   
 </body>
 </html>

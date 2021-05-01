@@ -9,7 +9,7 @@ header {
     position: fixed;
     height: 7%;
     width: 100%;
-    background-color: #00CED1;
+    background-color: #097FAC;
     display: flex;
     z-index: 1;
     align-items: center;
@@ -19,7 +19,7 @@ header {
 #contenido {
     width: 100%;
     height: 100vh;
-    background-color: blue;
+    background-color: #8E939D;
 }
 
 #segmento-inicio {
