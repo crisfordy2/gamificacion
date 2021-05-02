@@ -8,8 +8,7 @@ const { homeGet,
       contacto,      
       loginUser,
       crearCurso,
-      addCurso,
-      objectoClases } = require('../controllers.js/home');
+      addCurso } = require('../controllers.js/home');
 
 const router = Router();
 
@@ -32,7 +31,7 @@ router.post('/crearCurso', crearCurso);
 
 router.post('/addCurso', addCurso);
 
-router.post('/mostrarCurso', objectoClases);
+//router.post('/mostrarCurso', objectoClases);
 
 
 

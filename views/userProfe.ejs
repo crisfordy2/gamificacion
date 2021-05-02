@@ -30,22 +30,19 @@
     <section id="contenido">
 
         <div id="segmento-inicio">
-
-            <h1>Cursos</h1>           
+            <div id="contenedor-cursosTitulo">
+                 <h1 id="cursosTitulo">Cursos</h1>       
+            </div>
             
-            <form action="/home/mostrarCurso" method="post" id="lol" name="lol">
-                <input type="text" name="idUser" id="idUser" style="opacity: 0;">
-                <button type="submit" >enviar</button>
-                
-            </form>
-            
-            <pre>
+            <div id="contenedor-cursos">
                 <% if (objeto.nameClass != "") { %>
                     <% for (var i = 0; i < objeto.length; i++) { %>
-                        <%= objeto[i].nameClass %>                      
+                        <form action="">
+                        <button id="cursos"><%= objeto[i].nameClass %></button>                        
+                        </form>
                     <% } %>    
                 <% } %>
-            </pre>
+            </div>
 
 
 
@@ -62,15 +59,16 @@
     <script>
         sessionStorage.setItem("id", "<%= idUser %>");        
         sessionStorage.setItem("nombre", "<%= nombre %>");
-        document.getElementById("idUser").value = sessionStorage.getItem("id");      
-        
-        
-        /*
-        window.onload = function(){
-        document.lol.submit();
-        };*/
+        //document.getElementById("idUser").value = sessionStorage.getItem("id");            
         
     </script>
   
 </body>
 </html>
+
+ <!--
+            <form action="/home/mostrarCurso" method="post" id="lol" name="lol">
+                <input type="text" name="idUser" id="idUser" style="opacity: 0;">
+                <button type="submit" >enviar</button>
+                
+            </form>-->

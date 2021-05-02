@@ -22,9 +22,8 @@ header {
     background-color: #8E939D;
 }
 
-#segmento-inicio {
-    display: flex;
-    padding-top: 9vh;
+#segmento-inicio {    
+    padding-top: 9vh;    
 }
 
 #header-icon {    
@@ -47,4 +46,28 @@ header {
     /* Si se va a editar el margin left hay que editar tambien el marginleft de #header-icon*/
     margin-left: 35vw;   
 
+}
+
+#contenedor-cursos{
+    display: flex;
+    width: 100%;    
+    padding-top: 3vh;
+    justify-content:center;
+    
+}
+
+#cursosTitulo{
+    font-size: 2em;
+}
+
+#cursos{
+    width: 10vw;
+    height: 10vh;
+    margin: 20px;
+    font-size: 1.5em;
+}
+
+#contenedor-cursosTitulo{
+    display: flex;    
+    justify-content:center;
 }

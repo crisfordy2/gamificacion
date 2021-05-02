@@ -5,18 +5,6 @@ const homeGet = (req = request, res = response) => {
 
     res.render('index');
 
-    /*
-    req.getConnection((err,conn) =>{
-        conn.query('SELECT * FROM estudent', (error, answer) =>{
-            if(error){
-                res.json(error);
-            }
-            console.log(answer);
-            res.render('about');
-        });
-    });*/
-
-
 };
 
 
@@ -69,19 +57,11 @@ const loginUser = (req = request, res = response) => {
 
     const data = req.body;            
 
-    const consulta = `SELECT * FROM users WHERE userUser = "${data.userUser}" and passUser = "${data.passUser}"`;  
-    
-    /*
-    const objeto = {  idClass: '',
-        nameClass: '',
-        idUser: '',
-        codeClass: '',
-        passClass: ''}*/
+    const consulta = `SELECT * FROM users WHERE userUser = "${data.userUser}" and passUser = "${data.passUser}"`;   
     
     req.getConnection((err, conn) => {
         if (err) throw err;
-        conn.query(consulta, (error, answer) => {
-            if (error) throw error;
+        conn.query(consulta, (error, answer) => {            
             if (error) {
                 res.render('login',{
                     mensaje:'Error de servidor'
@@ -114,47 +94,11 @@ const loginUser = (req = request, res = response) => {
                             nombre: answer[0].nameUser
                         });
                     }
-
-                }); 
-             
-
+                });
             }      
         });
     });    
 };
-
-
-
-
-const objectoClases = (req = request, res = response) => {      
-
-    const data = req.body; 
-    //console.log("data aqui:",data.idUser);
-
-    const consulta = `SELECT * FROM class WHERE idUser = ${data.idUser}`;  
-    //const consulta = `SELECT * FROM class WHERE idUser = 2`;      
-    
-    req.getConnection((err, conn) => {
-        conn.query(consulta, (error, answer) => {
-            if (error) {
-                res.json({
-                    error
-                });            
-            }
-
-            console.log(answer);           
-            
-            res.render('userProfe',{
-                nombre: "jorge",
-                idUser: 2,
-                objeto: answer
-            });
-        });
-       
-    });
-
-};
-
 
 
 const AddUserPost = (req = request, res = response) => {
@@ -214,60 +158,42 @@ module.exports = {
     loginUser,
     contacto,
     crearCurso,
-    addCurso,
-    objectoClases
+    addCurso    
     
 }
 
 
 
-/*const loginUser = (req = request, res = response) => {
+/*
 
-    const data = req.body;            
+const objectoClases = (req = request, res = response) => {      
 
-    const consulta = `SELECT * FROM users WHERE userUser = "${data.userUser}" and passUser = "${data.passUser}"`;  
-    
-    const objeto = {  idClass: '',
-        nameClass: '',
-        idUser: '',
-        codeClass: '',
-        passClass: ''}
+    const data = req.body; 
+    //console.log("data aqui:",data.idUser);
 
-    console.log("aqui nameclass", objeto.nameClass);
+    const consulta = `SELECT * FROM class WHERE idUser = ${data.idUser}`;  
+    //const consulta = `SELECT * FROM class WHERE idUser = 2`;      
     
     req.getConnection((err, conn) => {
         conn.query(consulta, (error, answer) => {
             if (error) {
-                res.render('login',{
-                    mensaje:'Error de servidor'
+                res.json({
+                    error
                 });            
-            }      
+            }
 
-            if(answer.length == 0){
-                res.render('login',{
-                    mensaje:'Error de autenticación'
-                });
-
-            }else{
-
-                //console.log(answer[0]);
-
-                if(answer[0].typeUser == 'profesor'){
-
-                    res.render('userProfe',{
-                        nombre: answer[0].nameUser,
-                        idUser: answer[0].idUser,
-                        objeto                       
-                    });
-                }else{
-                    res.render('userEstu',{
-                        nombre: answer[0].nameUser
-                    });
-                }
-             
-
-            }      
+            console.log(answer);           
+            
+            res.render('userProfe',{
+                nombre: "jorge",
+                idUser: 2,
+                objeto: answer
+            });
         });
-    });    
+       
+    });
+
 };
+
+
  */
