@@ -45,9 +45,11 @@ class Server {
             user: 'root',
             password: '',
             database: 'gamificacion',
-            port: 3306
+            port: 3306,
+            multipleStatements: true
 
         }, 'single'));
+        
         this.app.use(express.urlencoded({ extended: false }));
     }
 
