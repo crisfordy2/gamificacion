@@ -16,15 +16,6 @@ const RegistroUsuariosGet = (req = request, res = response) => {
 
 };
 
-const generic = (req = request, res = response) => {
-
-    res.render('elements', {
-        mensaje: 'hola'
-    });
-
-};
-
-
 
 const loguinGet = (req = request, res = response) => {
 
@@ -53,6 +44,20 @@ const contacto = (req = request, res = response) => {
 };
 
 
+const mostrarCurso = (req = request, res = response) => {
+
+    const data = req.body; 
+    
+    //console.log("idclass info: ",data);
+
+    res.render('userProfeCursos',{
+        mensaje:''
+    });
+
+};
+
+
+
 const loginUser = (req = request, res = response) => {
 
     const data = req.body;            
@@ -78,9 +83,7 @@ const loginUser = (req = request, res = response) => {
                 const consulta2 = `SELECT * FROM class WHERE idUser = ${answer[0].idUser}`;
 
                 conn.query(consulta2, (error, result) => {
-                    if (error) throw error;
-
-                    console.log('RESULT: ', result);
+                    if (error) throw error;                    
 
                     if(answer[0].typeUser == 'profesor'){
 
@@ -90,9 +93,20 @@ const loginUser = (req = request, res = response) => {
                             objeto: result                   
                         });
                     }else{
-                        res.render('userEstu',{
-                            nombre: answer[0].nameUser
+
+                        const consulta3 = `SELECT c.nameClass, c.idClass FROM class c INNER JOIN detailclass d ON c.idClass = d.idClass WHERE d.idUser = ${answer[0].idUser}`;    
+
+                        conn.query(consulta3, (error, resultado) => {
+                            if (error) throw error;                            
+
+                            res.render('userEstu',{
+                                nombre: answer[0].nameUser,
+                                idUser: answer[0].idUser,
+                                objeto: resultado
+                            });
+
                         });
+                        
                     }
                 });
             }      
@@ -133,7 +147,7 @@ const addCurso = (req = request, res = response) => {
         if (error) {
             res.json(error);
         }        
-        console.log('Answer AQUI:',answer[1]);
+        
         res.render('userProfe',{
             nombre,
             idUser: data.idUser,
@@ -146,6 +160,70 @@ const addCurso = (req = request, res = response) => {
 };
 
 
+const buscarCurso = (req = request, res = response) => {
+
+    const data = req.body;       
+
+    const consulta = `SELECT * FROM class WHERE nameClass = "${data.nameClass}"`;    
+    
+    req.getConnection((err, conn) => {
+        conn.query(consulta, (error, answer) => {
+        if (error) {
+            res.json(error);
+        }
+
+        if(answer.length == 0){
+            res.render('buscarCursos',{
+                mensaje:'No existe el curso ingresado',
+                objeto:[]                
+            });
+        }
+
+        console.log("AQUI ANSER: ", answer);
+        
+        res.render('buscarCursos',{
+            mensaje:'',                        
+            objeto: answer            
+        });
+           
+        });
+    });
+};
+
+
+const mostrarCursosEstu = (req = request, res = response) => {
+
+    const data = req.body;
+    console.log("aqui DATA:", data);
+
+    //const consulta3 = `SELECT c.nameClass, c.idClass FROM class c INNER JOIN detailclass d ON c.idClass = d.idClass WHERE d.idUser = ${data.idUser}`;
+    /* queda pendiente 3 querys
+    -consultar passaword
+    -agregar el detailclass(insert into)
+    -consultar los cursos otra vez
+    */
+    req.getConnection((err, conn) => {
+
+        conn.query(consulta3, (error, resultado) => {
+            if (error) throw error;
+
+            console.log('Objecto Resultado',resultado);
+
+            res.render('userEstu',{
+                nombre: answer[0].nameUser,
+                idUser: answer[0].idUser,
+                objeto: resultado
+            });
+
+        });
+
+    });                       
+
+}
+
+
+
+
 
 
 
@@ -153,47 +231,14 @@ module.exports = {
     homeGet,
     RegistroUsuariosGet,
     AddUserPost,
-    loguinGet,    
-    generic,    
+    loguinGet,            
     loginUser,
     contacto,
     crearCurso,
-    addCurso    
-    
+    addCurso,
+    mostrarCurso,
+    buscarCurso,
+    mostrarCursosEstu   
 }
 
 
-
-/*
-
-const objectoClases = (req = request, res = response) => {      
-
-    const data = req.body; 
-    //console.log("data aqui:",data.idUser);
-
-    const consulta = `SELECT * FROM class WHERE idUser = ${data.idUser}`;  
-    //const consulta = `SELECT * FROM class WHERE idUser = 2`;      
-    
-    req.getConnection((err, conn) => {
-        conn.query(consulta, (error, answer) => {
-            if (error) {
-                res.json({
-                    error
-                });            
-            }
-
-            console.log(answer);           
-            
-            res.render('userProfe',{
-                nombre: "jorge",
-                idUser: 2,
-                objeto: answer
-            });
-        });
-       
-    });
-
-};
-
-
- */

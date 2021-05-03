@@ -3,12 +3,14 @@ const {Router} = require('express');
 const { homeGet,
       RegistroUsuariosGet,
       AddUserPost,
-      loguinGet,      
-      generic,
+      loguinGet,            
       contacto,      
       loginUser,
       crearCurso,
-      addCurso } = require('../controllers.js/home');
+      addCurso,
+      mostrarCurso,
+      buscarCurso,
+      mostrarCursosEstu } = require('../controllers.js/home');
 
 const router = Router();
 
@@ -21,8 +23,6 @@ router.post('/addUser', AddUserPost);
 
 router.get('/login', loguinGet);
 
-router.get('/generic', generic);
-
 router.get('/contacto', contacto);
 
 router.post('/loginUser', loginUser);
@@ -31,20 +31,13 @@ router.post('/crearCurso', crearCurso);
 
 router.post('/addCurso', addCurso);
 
-//router.post('/mostrarCurso', objectoClases);
+router.post('/mostrarCurso', mostrarCurso);
+
+router.post('/buscarCurso', buscarCurso);
+
+router.post('/mostrarCursosEstu', mostrarCursosEstu);
 
 
-
-/*
-
-router.post('/', usariosPost);
-
-router.put('/:id', usariosPut);
-
-router.patch('/', usariosPatch);
-
-router.delete('/', usariosDelete); 
-*/
 
 
 

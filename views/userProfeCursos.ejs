@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/estilosHomeProfe.css">
-    <title>HomeProfesor</title>
+    <title>Curso</title>
 </head>
 
 <body>
     <header>
         <div id="header-icon">
-            <p id="titulo">Gamificación Profesor <%= nombre %> </p>
+            <p id="titulo">Gamificación Profesor</p>
             <div id="marco-icono">
                 <img src="/images/iconoHomeUser.svg" alt="imagen" id="icono">
             </div>
@@ -31,20 +31,10 @@
 
         <div id="segmento-inicio">
             <div id="contenedor-cursosTitulo">
-                 <h1 id="cursosTitulo">Cursos</h1>       
+                 <h1 id="cursosTitulo">Cursos de programacion</h1>       
             </div>
             
-            <div id="contenedor-cursos">
-                <% if (objeto.nameClass != "") { %>
-                    <% for (var i = 0; i < objeto.length; i++) { %>
-                        <form action="/home/mostrarCurso" method="POST">
-                        <button type="submit" id="cursos"><%= objeto[i].nameClass %></button>                        
-                        <input type="text" value="<%= objeto[i].idClass %>" name="idClass" style="opacity: 0;">                                                       
-                        </form>
-                    <% } %>    
-                <% } %>
-            </div>
-
+           
 
 
         </div>
@@ -56,14 +46,7 @@
 
 
 
-    
-    <script>
-        sessionStorage.setItem("id", "<%= idUser %>");        
-        sessionStorage.setItem("nombre", "<%= nombre %>");
-        
-        //document.getElementById("idUser").value = sessionStorage.getItem("id");            
-        
-    </script>
+   
   
 </body>
 </html>
