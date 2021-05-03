@@ -196,25 +196,46 @@ const mostrarCursosEstu = (req = request, res = response) => {
     const data = req.body;
     console.log("aqui DATA:", data);
 
-    //const consulta3 = `SELECT c.nameClass, c.idClass FROM class c INNER JOIN detailclass d ON c.idClass = d.idClass WHERE d.idUser = ${data.idUser}`;
-    /* queda pendiente 3 querys
+    /*  3 querys
     -consultar passaword
     -agregar el detailclass(insert into)
     -consultar los cursos otra vez
     */
-    req.getConnection((err, conn) => {
 
-        conn.query(consulta3, (error, resultado) => {
+    const consulta1 = `SELECT * FROM class WHERE idClass = ${data.idClass} and passClass = "${data.passClass}"`;  
+    
+    req.getConnection((err, conn) => {
+        conn.query(consulta1, (error, answer) => {
             if (error) throw error;
 
-            console.log('Objecto Resultado',resultado);
+            if(answer.length == 0){
+                res.render('buscarCursos',{
+                    mensaje:'Contraseña incorrecta',
+                    objeto:[]                
+                });
+            }            
 
-            res.render('userEstu',{
-                nombre: answer[0].nameUser,
-                idUser: answer[0].idUser,
-                objeto: resultado
+            //console.log('Objecto Resultado',answer);
+
+            
+            const consulta2 = `INSERT INTO detailclass (idClass, idUser) VALUES (${data.idClass},${data.idUser})`;
+
+            conn.query(consulta2, (error, result) => {
+                if (error) throw error; 
+
+                const consulta3 = `SELECT c.nameClass, c.idClass FROM class c INNER JOIN detailclass d ON c.idClass = d.idClass WHERE d.idUser = ${data.idUser}`;    
+
+
+                conn.query(consulta3, (error, resultado) => {
+                    if (error) throw error; 
+
+                    res.render('userEstu',{
+                        nombre: data.nameUser,
+                        idUser: data.idUser,
+                        objeto: resultado
+                    });
+                });
             });
-
         });
 
     });                       

@@ -28,6 +28,7 @@
                         <button type="submit" id="cursos">Añadir</button>                        
                         <input type="text" value="<%= objeto[i].idClass %>" name="idClass" style="opacity: 0;">                                                       						
 						<input type="text" id="idUser" name="idUser" style="opacity: 0;">
+						<input type="text" id="nameUser" name="nameUser" style="opacity: 0;">
                         </form>
                     <% } %>    
                 <% } %>
@@ -44,6 +45,7 @@
 
 		<script>
 			document.getElementById("idUser").value = sessionStorage.getItem("id");   
+			document.getElementById("nameUser").value = sessionStorage.getItem("nombre");
 		</script>
 
 	</body>
