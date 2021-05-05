@@ -10,7 +10,9 @@ const { homeGet,
       addCurso,
       mostrarCurso,
       buscarCurso,
-      mostrarCursosEstu } = require('../controllers.js/home');
+      mostrarCursosEstu,
+      asignarActividad,
+      crearActividad } = require('../controllers.js/home');
 
 const router = Router();
 
@@ -36,6 +38,10 @@ router.post('/mostrarCurso', mostrarCurso);
 router.post('/buscarCurso', buscarCurso);
 
 router.post('/mostrarCursosEstu', mostrarCursosEstu);
+
+router.post('/asignarActividad', asignarActividad);
+
+router.post('/crearActividad', crearActividad);
 
 
 

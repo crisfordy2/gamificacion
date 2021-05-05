@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+	<head>
+		<title>CrearCurso</title>
+		<meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>	
+
+		<h1  style="text-align: center; font-size: 25px;">Nueva actividad</h1>
+
+
+		<form action="/home/crearActividad" method="post">
+
+			<label for="nameActivity">nombre:</label>
+			<input type="text" name="nameActivity">
+			<br>
+			<label for="descActivity">descripcion:</label>
+			<input type="text" name="descActivity">
+			<br>
+			<label for="typeActivity">Tipo de actividad:</label>
+			<select name="typeActivity">
+				<option value="Individual">Individual</option>
+				<option value="Empresa">Empresa</option>            
+			</select>
+			<br>
+			<button type="submit">Crear</button>
+			<input type="text" value="<%= idClass %>" name="idClass" style="opacity: 0;">
+
+					
+
+		</form> 			
+		
+
+
+
+
+		
+
+	</body>
+</html>

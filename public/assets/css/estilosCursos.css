@@ -1,0 +1,85 @@
+* {
+    padding: 0%;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+header {
+    position: fixed;
+    height: 7%;
+    width: 100%;
+    background-color: #097FAC;
+    display: flex;
+    z-index: 1;
+    align-items: center;
+    justify-content:center;
+}
+
+#navBar{
+    height: 7%;
+    width: 100%;
+    background-color: #013b52;
+    display: flex;    
+    align-items: center;
+    justify-content:center;
+    padding-top: 5%;
+}
+
+#contenido {
+    width: 100%;    
+    height: 100vh;
+    background-color: #8E939D;
+    display: flex;
+}
+
+#header-icon {    
+    display: flex;
+    align-items: center;
+    justify-content:center;       
+    margin-left: 35vw;   
+}
+
+#icono {
+    width: 3vw;
+    height: 5vh;
+}
+
+#titulo{
+    font-size: 1.6em;
+}
+
+#header-button{
+    /* Si se va a editar el margin left hay que editar tambien el marginleft de #header-icon*/
+    margin-left: 35vw;   
+
+}
+
+#lado-derecho{
+    width: 40%;    
+}
+
+#lado-izquierdo{
+    width: 60%;
+}
+
+.subtitulo{
+    text-align: center;
+    font-size: 1.8em;
+}
+
+#actividades{
+    width: 80%;
+    background-color: brown;       
+    margin-left: auto;
+    margin-right: auto;  
+    border: 1px solid black;
+    font-size: 1.4em;    
+    padding: 1vh;
+
+}
+
+#contenedor-actividades{
+    padding: 1.3vh;
+}
+
