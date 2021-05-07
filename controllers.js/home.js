@@ -209,13 +209,12 @@ const buscarCurso = (req = request, res = response) => {
 };
 
 const mostrarCursosEstu = (req = request, res = response) => {
-    const data = req.body;
-    console.log("aqui DATA:", data);
+    const data = req.body;    
 
     /*  3 querys
-      -consultar passaword
-      -agregar el detailclass(insert into)
-      -consultar los cursos otra vez
+    -consultar passaword
+    -agregar el detailclass(insert into)
+    -consultar los cursos otra vez
       */
 
     const consulta1 = `SELECT * FROM class WHERE idClass = ${data.idClass} and passClass = "${data.passClass}"`;
@@ -229,9 +228,7 @@ const mostrarCursosEstu = (req = request, res = response) => {
                     mensaje: "Contraseña incorrecta",
                     objeto: [],
                 });
-            }
-
-            //console.log('Objecto Resultado',answer);
+            }            
 
             const consulta2 = `INSERT INTO detailclass (idClass, idUser) VALUES (${data.idClass},${data.idUser})`;
 
@@ -254,6 +251,90 @@ const mostrarCursosEstu = (req = request, res = response) => {
     });
 };
 
+
+
+const mostrarCursoEstu = (req = request, res = response)=> {
+
+    const data = req.body;    
+
+    const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a On c.idClass = a.idClass WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual"`;
+
+    req.getConnection((err, conn) => {
+        conn.query(consulta1, (error, answer) => {
+            if (error) throw error;
+
+            //validacion de si las actividades ya tienen informacion
+
+            answer.forEach(element => {
+                console.log("elementos: ", element);
+            });
+
+            const consulta2 = `SELECT * FROM recordactivity WHERE idActivity = ${answer[0].idActivity} and idUser = ${data.idUser}`;
+            
+            conn.query(consulta2, (error, resultado) => {
+                if (error) throw error;
+
+                
+                
+
+                res.render("cursosEstudiante",{
+                    nameClass: data.nameClass,
+                    actividades: answer
+                });
+
+            });
+
+            
+        });
+    });
+
+};
+
+const entregarActividadEstu = (req = request, res = response) =>{
+
+    const data = req.body;   
+
+    res.render("entregarActividadEstu",{
+        data
+    });
+};
+
+
+const crearRecordActivity = (req = request, res = response) => {
+
+    const data = req.body;
+
+    const consulta = `INSERT INTO recordactivity (deliverableActivity, idActivity, idUser) VALUES ("${data.deliverableActivity}", ${data.idActivity}, ${data.idUser})`;
+    
+    req.getConnection((err, conn) => {
+        conn.query(consulta, (error, answer) => {
+            if (error) throw error;         
+            
+            const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a On c.idClass = a.idClass WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual"`;
+
+            conn.query(consulta1, (error, answer) => {                
+                res.render("cursosEstudiante",{
+                    nameClass: data.nameClass,
+                    actividades: answer
+                });
+
+            });
+
+        });
+    });
+
+
+
+} 
+
+
+
+
+
+
+
+
+
 module.exports = {
     homeGet,
     RegistroUsuariosGet,
@@ -267,5 +348,11 @@ module.exports = {
     buscarCurso,
     mostrarCursosEstu,
     asignarActividad,
-    crearActividad
+    crearActividad,
+    mostrarCursoEstu,
+    entregarActividadEstu,
+    crearRecordActivity
 };
+
+
+

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/css/estilosCursos.css" />
+    <title>Curso</title>
+</head>
+
+<body>
+    <header>
+        <div id="header-icon">
+            <p id="titulo"><%= nameClass %></p>
+            <div id="marco-icono">
+                <img src="/images/iconoHomeUser.svg" alt="imagen" id="icono" />
+            </div>
+        </div>
+
+        <!-- div vacio por que se mueve el titulo-->
+        <div id="header-button"></div>
+    </header>
+
+    <div id="navBar">        
+        <button>Privada</button>       
+        <button>Publica</button>        
+        <button>Cerar Empresa</button>
+        <button>Buscar Empresa</button>
+    </div>
+
+    <section id="contenido">
+        <div id="lado-izquierdo">
+            <h2 class="subtitulo">notas</h2>
+        </div>
+
+        <div id="lado-derecho">
+            <h2 class="subtitulo">actividades</h2>
+
+            
+            <% if (actividades.nameActivity !="" ) { %>
+                <% for (var i=0; i < actividades.length; i++) { %>
+            <div id="contenedor-actividades">
+                <div id="actividades">
+                    <form action="/home/entregarActividadEstu" method="POST">
+                        <label>
+                            <%= actividades[i].nameActivity %>
+                        </label>
+                        <br>
+                        <label>
+                            <%= actividades[i].descActivity %>
+                        </label>
+                        <br>
+                        <button type="submit" id="cursos">Entregar</button>
+                        <input type="text" value="<%= actividades[i].idClass %>" name="idClass" style="opacity: 0;">
+                        <input type="text" value="<%= actividades[i].idActivity %>" name="idActivity" style="opacity: 0;">
+                        <input type="text" value="<%= actividades[i].nameActivity %>" name="nameActivity" style="opacity: 0;">
+                        <input type="text" value="<%= actividades[i].descActivity %>" name="descActivity" style="opacity: 0;">
+                        <input type="text" value="<%= nameClass %>" name="nameClass" style="opacity: 0;">
+                    </form>
+                </div>
+            </div>
+                <% } %>
+                    <% } %>
+
+        </div>
+
+    </section>
+</body>
+
+</html>

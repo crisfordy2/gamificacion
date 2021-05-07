@@ -1,18 +1,21 @@
 
 const {Router} = require('express');
 const { homeGet,
-      RegistroUsuariosGet,
-      AddUserPost,
-      loguinGet,            
-      contacto,      
-      loginUser,
-      crearCurso,
-      addCurso,
-      mostrarCurso,
-      buscarCurso,
-      mostrarCursosEstu,
-      asignarActividad,
-      crearActividad } = require('../controllers.js/home');
+    RegistroUsuariosGet,
+    AddUserPost,
+    loguinGet,            
+    contacto,      
+    loginUser,
+    crearCurso,
+    addCurso,
+    mostrarCurso,
+    buscarCurso,
+    mostrarCursosEstu,
+    asignarActividad,
+    crearActividad,
+    mostrarCursoEstu,
+    entregarActividadEstu,
+    crearRecordActivity } = require('../controllers.js/home');
 
 const router = Router();
 
@@ -42,6 +45,14 @@ router.post('/mostrarCursosEstu', mostrarCursosEstu);
 router.post('/asignarActividad', asignarActividad);
 
 router.post('/crearActividad', crearActividad);
+
+router.post('/mostrarCursoEstu', mostrarCursoEstu);
+
+router.post('/entregarActividadEstu', entregarActividadEstu);
+
+router.post('/crearRecordActivity', crearRecordActivity);
+
+
 
 
 
