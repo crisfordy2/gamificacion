@@ -257,34 +257,27 @@ const mostrarCursoEstu = (req = request, res = response)=> {
 
     const data = req.body;    
 
-    const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a On c.idClass = a.idClass WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual"`;
+    const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass , r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass LEFT JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual" and r.deliverableActivity is null`;
+
+    
 
     req.getConnection((err, conn) => {
         conn.query(consulta1, (error, answer) => {
             if (error) throw error;
 
-            //validacion de si las actividades ya tienen informacion
+            /**
+             * la consulta 1 trae las actividades, pero se necesita saber cuales de esas actividades vienen sin la recordactivity creada
+             * si ya esta creada la recordactivity no se muestra la actividad
+             */
+            console.log("ANSWER CONSULTA NUEVA: ", answer);  
 
-            answer.forEach(element => {
-                console.log("elementos: ", element);
-            });
 
-            const consulta2 = `SELECT * FROM recordactivity WHERE idActivity = ${answer[0].idActivity} and idUser = ${data.idUser}`;
-            
-            conn.query(consulta2, (error, resultado) => {
-                if (error) throw error;
 
-                
-                
+            res.render("cursosEstudiante",{
+                nameClass: data.nameClass,
+                actividades: answer
+            });    
 
-                res.render("cursosEstudiante",{
-                    nameClass: data.nameClass,
-                    actividades: answer
-                });
-
-            });
-
-            
         });
     });
 
@@ -310,12 +303,19 @@ const crearRecordActivity = (req = request, res = response) => {
         conn.query(consulta, (error, answer) => {
             if (error) throw error;         
             
-            const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a On c.idClass = a.idClass WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual"`;
+            const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass , r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass LEFT JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual"`;            
 
-            conn.query(consulta1, (error, answer) => {                
+            conn.query(consulta1, (error, resultado) => {   
+                
+                resultado.forEach(element => {
+                    if(element.deliverableActivity != null){
+                        resultado.splice(element,1);
+                    }                
+                });
+    
                 res.render("cursosEstudiante",{
                     nameClass: data.nameClass,
-                    actividades: answer
+                    actividades: resultado
                 });
 
             });
