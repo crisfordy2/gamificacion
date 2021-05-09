@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const { response, request } = (require = require("express"));
 
 const homeGet = (req = request, res = response) => {
@@ -44,18 +46,18 @@ const mostrarCurso = (req = request, res = response) => {
             });
 
         });
-    });    
+    });
 
-    
+
 };
 
-const asignarActividad = (req = request, res = response)=> {
+const asignarActividad = (req = request, res = response) => {
 
     const data = req.body;
 
     console.log("llegando a crear actividad", data);
 
-    res.render('crearActividad',{
+    res.render('crearActividad', {
         idClass: data.idClass
     });
 
@@ -64,7 +66,7 @@ const asignarActividad = (req = request, res = response)=> {
 const crearActividad = (req = request, res = response) => {
 
     const data = req.body;
-    
+
     console.log("datos actividad", data);
 
     const consulta = `INSERT INTO activities(nameActivity, descActivity, typeActivity, idClass) VALUES ("${data.nameActivity}", "${data.descActivity}", "${data.typeActivity}", ${data.idClass} )`;
@@ -85,9 +87,9 @@ const crearActividad = (req = request, res = response) => {
         });
     });
 
-    
 
-    
+
+
 };
 
 
@@ -209,7 +211,7 @@ const buscarCurso = (req = request, res = response) => {
 };
 
 const mostrarCursosEstu = (req = request, res = response) => {
-    const data = req.body;    
+    const data = req.body;
 
     /*  3 querys
     -consultar passaword
@@ -228,7 +230,7 @@ const mostrarCursosEstu = (req = request, res = response) => {
                     mensaje: "Contraseña incorrecta",
                     objeto: [],
                 });
-            }            
+            }
 
             const consulta2 = `INSERT INTO detailclass (idClass, idUser) VALUES (${data.idClass},${data.idUser})`;
 
@@ -253,13 +255,13 @@ const mostrarCursosEstu = (req = request, res = response) => {
 
 
 
-const mostrarCursoEstu = (req = request, res = response)=> {
+const mostrarCursoEstu = (req = request, res = response) => {
 
-    const data = req.body;    
+    const data = req.body;
 
     const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass , r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass LEFT JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual" and r.deliverableActivity is null`;
 
-    
+
 
     req.getConnection((err, conn) => {
         conn.query(consulta1, (error, answer) => {
@@ -269,25 +271,25 @@ const mostrarCursoEstu = (req = request, res = response)=> {
              * la consulta 1 trae las actividades, pero se necesita saber cuales de esas actividades vienen sin la recordactivity creada
              * si ya esta creada la recordactivity no se muestra la actividad
              */
-            console.log("ANSWER CONSULTA NUEVA: ", answer);  
+            console.log("ANSWER CONSULTA NUEVA: ", answer);
 
 
 
-            res.render("cursosEstudiante",{
+            res.render("cursosEstudiante", {
                 nameClass: data.nameClass,
                 actividades: answer
-            });    
+            });
 
         });
     });
 
 };
 
-const entregarActividadEstu = (req = request, res = response) =>{
+const entregarActividadEstu = (req = request, res = response) => {
 
-    const data = req.body;   
+    const data = req.body;
 
-    res.render("entregarActividadEstu",{
+    res.render("entregarActividadEstu", {
         data
     });
 };
@@ -298,22 +300,22 @@ const crearRecordActivity = (req = request, res = response) => {
     const data = req.body;
 
     const consulta = `INSERT INTO recordactivity (deliverableActivity, idActivity, idUser) VALUES ("${data.deliverableActivity}", ${data.idActivity}, ${data.idUser})`;
-    
+
     req.getConnection((err, conn) => {
         conn.query(consulta, (error, answer) => {
-            if (error) throw error;         
-            
-            const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass , r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass LEFT JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual"`;            
+            if (error) throw error;
 
-            conn.query(consulta1, (error, resultado) => {   
-                
+            const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass , r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass LEFT JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual"`;
+
+            conn.query(consulta1, (error, resultado) => {
+
                 resultado.forEach(element => {
-                    if(element.deliverableActivity != null){
-                        resultado.splice(element,1);
-                    }                
+                    if (element.deliverableActivity != null) {
+                        resultado.splice(element, 1);
+                    }
                 });
-    
-                res.render("cursosEstudiante",{
+
+                res.render("cursosEstudiante", {
                     nameClass: data.nameClass,
                     actividades: resultado
                 });
@@ -322,10 +324,70 @@ const crearRecordActivity = (req = request, res = response) => {
 
         });
     });
+};
 
 
+const subirArchivo = (req = request, res = response) => {
 
-} 
+    console.log("file: ", req.files);    
+
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
+        res.status(400).json({msg:'No files were uploaded.'});
+        return;
+    }    
+
+    const sampleFile = req.files.archivo;
+
+    const uploadPath = path.join(__dirname, '../uploads/', sampleFile.name);
+    console.log("antes", uploadPath);
+
+    sampleFile.mv(uploadPath, (err) => {
+        if (err) {
+            return res.status(500).josn({err});
+        }
+        
+        console.log("se guardo", uploadPath);
+        
+    });
+    // /\b(\\|\)\b/g
+    const remplazo = uploadPath.replace(/\\/g, '/');
+    // const remplazo = uploadPath.split('"\"').join('/');
+    console.log("AQUi remplazo", remplazo);
+
+    const consulta = `INSERT INTO recordactivity (deliverableActivity, idActivity, idUser) VALUES ("${remplazo}", 7, 3)`;
+    
+    req.getConnection((err, conn) => {
+        conn.query(consulta, (error, answer) => {
+            if (error) throw error;
+
+            const consulta2 = `SELECT * FROM recordactivity WHERE idUser = 3`;
+
+            conn.query(consulta2, (error, respuesta) => { 
+
+                console.log("Respuesta de archivos", respuesta);
+
+                res.render('vistaArchivos',{
+                    respuesta
+                });  
+
+            });            
+    
+        });
+    });
+
+};
+
+
+const descargaArchivos = (req = request, res = response) => {
+
+    const {deliverableActivity} = req.body;
+
+    console.log("data de descargar: " , deliverableActivity);    
+    
+    res.download(deliverableActivity);    
+};
+
+
 
 
 
@@ -351,7 +413,9 @@ module.exports = {
     crearActividad,
     mostrarCursoEstu,
     entregarActividadEstu,
-    crearRecordActivity
+    crearRecordActivity,
+    subirArchivo,
+    descargaArchivos
 };
 
 
