@@ -1,76 +1,70 @@
-const express = require('express')
-const cors = require('cors');
-const mysql = require('mysql');
-const myConnection = require('express-myconnection');
-
-
+const express = require("express");
+const cors = require("cors");
+const mysql = require("mysql");
+const myConnection = require("express-myconnection");
 
 class Server {
+  constructor() {
+    this.app = express();
+    this.port = process.env.PORT;
 
-    constructor() {
-        this.app = express();
-        this.port = process.env.PORT;
+    // agregar path
+    this.homePath = "/home";
+    this.usuariosPath = "/usuarios";
 
-        // agregar path
-        this.homePath = '/home';
-        this.usuariosPath = '/usuarios';
+    // Middelewares
+    this.middlewares();
 
-        // Middelewares 
-        this.middlewares();
+    //rutas de la app
+    this.routes();
+  }
 
+  middlewares() {
+    //cors
+    this.app.use(cors());
 
-        //rutas de la app
-        this.routes();
+    // Lectura y parseo del body
+    this.app.use(express.json());
 
+    //Directoria publico
+    this.app.use(express.static("public"));
 
-    }
+    this.app.set("views", "./views");
+    this.app.set("view engine", "ejs");
 
-    middlewares() {
+    // conexion bd
+    this.app.use(
+      myConnection(
+        mysql,
+        {
+          host: "localhost",
+          user: "root",
+          password: "",
+          database: "gamificacion",
+          port: 3306,
+          multipleStatements: true,
+        },
+        "single"
+      )
+    );
 
-        //cors
-        this.app.use(cors());
+    this.app.use(express.urlencoded({ extended: false }));
+  }
 
-        // Lectura y parseo del body
-        this.app.use(express.json());
+  routes() {
+    this.app.use(this.homePath, require("../routes/routeHome"));
 
-        //Directoria publico
-        this.app.use(express.static('public'));
-
-        this.app.set('views', './views');
-        this.app.set('view engine', 'ejs');
-
-        // conexion bd
-        this.app.use(myConnection(mysql, {
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'gamificacion',
-            port: 3306,
-            multipleStatements: true
-
-        }, 'single'));
-        
-        this.app.use(express.urlencoded({ extended: false }));
-    }
-
-    routes() {
-
-        this.app.use(this.homePath, require('../routes/routeHome'));
-
-        /*
+    /*
         this.app.get('/about', (req, res)=>{
             res.render('about');
         });*/
-    }
+  }
 
-
-    listen() {
-
-        this.app.listen(this.port, () => {
-            console.log('Servidor corriendo puerto', this.port);
-        });
-    }
-
+  listen() {
+    this.app.listen(this.port, () => {
+      console.log("Servidor corriendo puerto", this.port);
+    });
+  }
 }
 
 module.exports = Server;
