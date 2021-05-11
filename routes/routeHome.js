@@ -17,7 +17,8 @@ const { homeGet,
     entregarActividadEstu,
     crearRecordActivity,
     subirArchivo,
-    descargaArchivos } = require('../controllers.js/home');
+    descargaArchivos,
+    verActividadesProfe } = require('../controllers.js/home');
 
 const router = Router();
 
@@ -53,6 +54,11 @@ router.post('/mostrarCursoEstu', mostrarCursoEstu);
 router.post('/entregarActividadEstu', entregarActividadEstu);
 
 router.post('/crearRecordActivity', crearRecordActivity);
+
+router.post('/verActividadesProfe', verActividadesProfe);
+
+
+
 
 router.post('/subirArchivo', subirArchivo);
 

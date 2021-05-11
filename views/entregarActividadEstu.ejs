@@ -12,9 +12,9 @@
 
     <h3><%= data.descActivity %></h3>
 
-    <form action="/home/crearRecordActivity" method="POST">
-
-        <input type="text" name="deliverableActivity">
+    <form action="/home/crearRecordActivity" method="POST" enctype="multipart/form-data">
+        
+        <input type="file" name="deliverableActivity">
         <button type="submit">Enviar</button>
         <input type="text" value="<%= data.idActivity %>" name="idActivity" style="opacity: 0;">
         <input type="text" value="<%= data.idClass %>" name="idClass" style="opacity: 0;">

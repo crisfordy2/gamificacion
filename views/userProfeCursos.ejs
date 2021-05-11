@@ -46,7 +46,7 @@
                 <% for (var i=0; i < actividades.length; i++) { %>
             <div id="contenedor-actividades">
                 <div id="actividades">
-                    <form action="/home/" method="POST">
+                    <form action="/home/verActividadesProfe" method="POST">
                         <label>
                             <%= actividades[i].nameActivity %>
                         </label>
@@ -55,10 +55,9 @@
                             <%= actividades[i].descActivity %>
                         </label>
                         <br>
-                        <button type="submit" id="cursos">Ver</button>
+                        <button type="submit" id="cursos">Ver Acti</button>
                         <input type="text" value="<%= actividades[i].idClass %>" name="idClass" style="opacity: 0;">
-                        <input type="text" value="<%= actividades[i].idActivity %>" name="idActivity"
-                            style="opacity: 0;">
+                        <input type="text" value="<%= actividades[i].idActivity %>" name="idActivity" style="opacity: 0;">
                     </form>
                 </div>
             </div>
