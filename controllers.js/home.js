@@ -34,15 +34,18 @@ const mostrarCurso = (req = request, res = response) => {
 
     const data = req.body;
 
-    const consulta = `SELECT * FROM activities WHERE idClass = ${data.idClass}`;
+    const consultas = `SELECT * FROM activities WHERE idClass = ${data.idClass}; SELECT u.idUser, u.nameUser, u.lastNameUser, a.idActivity , a.nameActivity, r.idRecordActivity,COALESCE(r.noteActivity, 0) as noteActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE c.idClass = ${data.idClass} and a.typeActivity = "Individual" and u.idUser = r.idUser;`;
 
     req.getConnection((err, conn) => {
         if (err) throw err;
-        conn.query(consulta, (error, answer) => {
+        conn.query(consultas, (error, answer) => {
+
+            console.log("Notas", answer[1]);
 
             res.render("userProfeCursos", {
                 idClass: data.idClass,
-                actividades: answer
+                actividades: answer[0],
+                notas: answer[1]
             });
 
         });
@@ -344,11 +347,10 @@ const crearRecordActivity = (req = request, res = response) => {
     console.log("AQUi remplazo", remplazo);
     console.log("nombre archivo", req.files.deliverableActivity.name);    
 
-    // aqui esto hay que arreglarlo por que ya el objkecto record existe, solo se va a editar
+    // se edita la tabla de recordactivity con los registros de los archivos 
     
-    // const consulta = `INSERT INTO recordactivity (deliverableActivity, idActivity, idUser, nameFile) VALUES ("${remplazo}", ${data.idActivity}, ${data.idUser}, "${req.files.deliverableActivity.name}")`;
+    
     const consulta = `UPDATE recordactivity SET deliverableActivity = "${remplazo}", nameFile = "${req.files.deliverableActivity.name}" WHERE idUser = ${data.idUser} and idActivity = ${data.idActivity}`;
-
 
 
     req.getConnection((err, conn) => {
@@ -369,8 +371,6 @@ const crearRecordActivity = (req = request, res = response) => {
 
         });
     });
-
-
 
 };
 
@@ -435,35 +435,45 @@ const descargaArchivos = (req = request, res = response) => {
     res.download(deliverableActivity);    
 };
 
+
 const verActividadesProfe = (req = request, res = response) => {
 
     const data = req.body;
 
     console.log("llego la activiadad", data);
 
-    const consulta = `SELECT * FROM recordactivity WHERE idActivity = ${data.idActivity}`
+    const consulta = `SELECT * FROM recordactivity WHERE idActivity = ${data.idActivity} and deliverableActivity is not null`;   
 
     req.getConnection((err, conn) => {
         conn.query(consulta, (error, answer) => {
 
-            
-        res.render('verActividadesProfe',{
-            actividades : answer
-        });
+            console.log("recordactivity", answer);
 
+            
+            res.render('verActividadesProfe',{
+                actividades : answer
+            }); 
+
+        });
+    });
+};
+
+const asignarNotas = (req = request, res = response) =>{
+    const data = req.body;
+    console.log("data de notas", data);
+
+    const consulta = `UPDATE recordactivity SET ecoins = ${data.ecoins}, noteActivity = ${data.noteActivity} WHERE idRecordActivity = ${data.idRecordActivity}`;
+
+    req.getConnection((err, conn) => {
+        conn.query(consulta, (error, answer) => {
+
+            res.send("se creo");
 
         });
     });
 
 
-};
-
-
-
-
-
-
-
+}
 
 
 
@@ -487,7 +497,8 @@ module.exports = {
     crearRecordActivity,
     subirArchivo,
     descargaArchivos,
-    verActividadesProfe
+    verActividadesProfe,
+    asignarNotas
 };
 
 

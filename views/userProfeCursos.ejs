@@ -32,9 +32,35 @@
 
     <section id="contenido">
         <div id="lado-izquierdo">
-            <h2 class="subtitulo">notas <span>
-                    <%= idClass %>
-                </span></h2>
+            <h2 class="subtitulo">notas <span><%= idClass %></span></h2>
+
+            <div>
+
+                <% if (notas.idRecordActivity !="" ) { %>
+                    <% for (var i=0; i < notas.length; i++) { %>
+                <div id="contenedor-actividades">
+                    <div id="actividades">
+                        <form action="/home/" method="POST">
+                            <label>
+                                <%= notas[i].nameActivity %>
+                            </label>
+                            <br>
+                            <label>
+                                <%= notas[i].nameUser %>
+                            </label>
+                            <br>
+                            <label>
+                                <%= notas[i].noteActivity %>
+                            </label>
+                            <br>
+                            <button type="submit" id="cursos">Ver Acti</button>                            
+                        </form>
+                    </div>
+                </div>
+                    <% } %>
+                        <% } %>
+
+            </div>
 
         </div>
 

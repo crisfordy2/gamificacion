@@ -18,7 +18,8 @@ const { homeGet,
     crearRecordActivity,
     subirArchivo,
     descargaArchivos,
-    verActividadesProfe } = require('../controllers.js/home');
+    verActividadesProfe,
+    asignarNotas         } = require('../controllers.js/home');
 
 const router = Router();
 
@@ -57,12 +58,11 @@ router.post('/crearRecordActivity', crearRecordActivity);
 
 router.post('/verActividadesProfe', verActividadesProfe);
 
-
-
-
 router.post('/subirArchivo', subirArchivo);
 
 router.post('/descargaArchivos',descargaArchivos);
+
+router.post('/asignarNotas',asignarNotas);
 
 
 
