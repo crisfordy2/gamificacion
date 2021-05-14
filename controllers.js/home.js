@@ -34,7 +34,7 @@ const mostrarCurso = (req = request, res = response) => {
 
     const data = req.body;
 
-    const consultas = `SELECT * FROM activities WHERE idClass = ${data.idClass}; SELECT u.idUser, u.nameUser, u.lastNameUser, a.idActivity , a.nameActivity, r.idRecordActivity,COALESCE(r.noteActivity, 0) as noteActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE c.idClass = ${data.idClass} and a.typeActivity = "Individual" and u.idUser = r.idUser;`;
+    const consultas = `SELECT * FROM activities WHERE idClass = ${data.idClass}; SELECT u.idUser, u.nameUser, u.lastNameUser, a.idActivity , a.nameActivity, r.idRecordActivity,COALESCE(r.noteActivity, 0) as noteActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE c.idClass = ${data.idClass} and a.typeActivity = "Individual" and u.idUser = r.idUser order by a.nameActivity asc;`;
 
     req.getConnection((err, conn) => {
         if (err) throw err;
@@ -98,15 +98,16 @@ const crearActividad = (req = request, res = response) => {
                 });
                 
                 usuarios = usuarios.substring(0,usuarios.length - 1);
-                // console.log("usuarios ", usuarios);
+                console.log("usuarios ", usuarios);
 
-                const consulta2 = `INSERT INTO recordactivity (idActivity, idUser) VALUES ${usuarios}; SELECT * FROM activities WHERE idClass = ${data.idClass}`;
+                const consulta2 = `INSERT INTO recordactivity (idActivity, idUser) VALUES ${usuarios}; SELECT * FROM activities WHERE idClass = ${data.idClass}; SELECT u.idUser, u.nameUser, u.lastNameUser, a.idActivity , a.nameActivity, r.idRecordActivity,COALESCE(r.noteActivity, 0) as noteActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE c.idClass = ${data.idClass} and a.typeActivity = "Individual" and u.idUser = r.idUser order by a.nameActivity asc;`;
 
                 conn.query(consulta2, (error, resultado) => {
 
                     res.render("userProfeCursos", {
                         idClass: data.idClass,
-                        actividades: resultado[1]
+                        actividades: resultado[1],
+                        notas: resultado[2]
                     });
                 }); 
 
@@ -285,7 +286,8 @@ const mostrarCursoEstu = (req = request, res = response) => {
     // esta mala la consulta, creo q me hace falta poner que el tipo de usario es estudinate    
 
 
-    const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass, u.idUser, r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual" and r.idUser = ${data.idUser} and r.deliverableActivity is null`;
+    const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass, u.idUser, r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual" and r.idUser = ${data.idUser} and r.deliverableActivity is null; SELECT u.idUser, u.nameUser, u.lastNameUser, a.idActivity , a.nameActivity, r.idRecordActivity, COALESCE(r.noteActivity, 0) as noteActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity 
+    WHERE c.idClass = ${data.idClass} and a.typeActivity = "Individual" and u.idUser = ${data.idUser} and  r.idUser = ${data.idUser}`;
 
 
 
@@ -297,13 +299,12 @@ const mostrarCursoEstu = (req = request, res = response) => {
              * la consulta 1 trae las actividades, pero se necesita saber cuales de esas actividades vienen sin la recordactivity creada
              * si ya esta creada la recordactivity no se muestra la actividad
              */
-            console.log("ANSWER CONSULTA NUEVA: ", answer);
-
-
+            
 
             res.render("cursosEstudiante", {
                 nameClass: data.nameClass,
-                actividades: answer
+                actividades: answer[0],
+                notas: answer[1]
             });
 
         });

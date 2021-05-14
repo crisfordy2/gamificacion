@@ -34,31 +34,36 @@
         <div id="lado-izquierdo">
             <h2 class="subtitulo">notas <span><%= idClass %></span></h2>
 
-            <div>
+            <div class="tablaNotas">
 
-                <% if (notas.idRecordActivity !="" ) { %>
-                    <% for (var i=0; i < notas.length; i++) { %>
-                <div id="contenedor-actividades">
-                    <div id="actividades">
-                        <form action="/home/" method="POST">
-                            <label>
-                                <%= notas[i].nameActivity %>
-                            </label>
-                            <br>
-                            <label>
-                                <%= notas[i].nameUser %>
-                            </label>
-                            <br>
-                            <label>
-                                <%= notas[i].noteActivity %>
-                            </label>
-                            <br>
-                            <button type="submit" id="cursos">Ver Acti</button>                            
-                        </form>
-                    </div>
-                </div>
-                    <% } %>
+                <table>
+                    <tr>
+                        <th>Estudiante/Actividad</th>
+                        <% let vector = [] %>
+                        <% for (var i=0; i < notas.length; i++) { %>
+                            <% if ( !vector.includes(notas[i].idActivity)) { %>
+                                <% vector.push(notas[i].idActivity) %>
+                                <th> <%= notas[i].nameActivity %></th>
+                            <% } %>
                         <% } %>
+                    </tr>
+
+                    <% let vector2 = [] %>
+                    <% for (var i=0; i < notas.length; i++) { %>
+                        <% if ( !vector2.includes(notas[i].idUser)) { %>
+                            <% vector2.push(notas[i].idUser) %>
+                            <tr>
+                                <th><%= notas[i].nameUser %></th>
+                                <% for (var j=0; j < notas.length; j++) { %>
+                                    <% if ( notas[i].idUser == notas[j].idUser ) { %>
+                                        <th><%= notas[j].noteActivity %></th>
+                                    <% } %>
+                                <% } %>
+                            </tr>
+                        <% } %>
+                    <% } %>
+
+                </table>      
 
             </div>
 

@@ -32,6 +32,19 @@
     <section id="contenido">
         <div id="lado-izquierdo">
             <h2 class="subtitulo">notas</h2>
+            <div>
+                <table>
+                    
+                    <% for (var i=0; i < notas.length; i++) { %>                            
+                        <tr>                        
+                            <th> <%= notas[i].nameActivity %></th>
+                            <th> <%= notas[i].noteActivity %></th>
+                        </tr>
+                    <% } %>
+                        
+                </table>                    
+
+            </div>
         </div>
 
         <div id="lado-derecho">
