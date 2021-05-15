@@ -325,8 +325,8 @@ const entregarActividadEstu = (req = request, res = response) => {
 const crearRecordActivity = (req = request, res = response) => {
 
     const data = req.body;
-    console.log("aqui data de activiadad", data);
-    console.log("file: ", req.files); 
+    // console.log("aqui data de activiadad", data);
+    // console.log("file: ", req.files); 
 
     if (!req.files || Object.keys(req.files).length === 0 || !req.files.deliverableActivity) {
         res.status(400).json({msg:'No files were uploaded.'});
@@ -345,8 +345,8 @@ const crearRecordActivity = (req = request, res = response) => {
     
     const remplazo = uploadPath.replace(/\\/g, '/');
     
-    console.log("AQUi remplazo", remplazo);
-    console.log("nombre archivo", req.files.deliverableActivity.name);    
+    // console.log("AQUi remplazo", remplazo);
+    // console.log("nombre archivo", req.files.deliverableActivity.name);    
 
     // se edita la tabla de recordactivity con los registros de los archivos 
     
@@ -358,14 +358,16 @@ const crearRecordActivity = (req = request, res = response) => {
         conn.query(consulta, (error, answer) => {
             if (error) throw error;
 
-            const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass, u.idUser, r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual" and r.idUser = ${data.idUser} and r.deliverableActivity is null`;
+            const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass, u.idUser, r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual" and r.idUser = ${data.idUser} and r.deliverableActivity is null; SELECT u.idUser, u.nameUser, u.lastNameUser, a.idActivity , a.nameActivity, r.idRecordActivity, COALESCE(r.noteActivity, 0) as noteActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity 
+            WHERE c.idClass = ${data.idClass} and a.typeActivity = "Individual" and u.idUser = ${data.idUser} and  r.idUser = ${data.idUser}`;
 
             conn.query(consulta1, (error, resultado) => {
                 
 
                 res.render("cursosEstudiante", {
                     nameClass: data.nameClass,
-                    actividades: resultado
+                    actividades: resultado[0],
+                    notas: resultado[1]
                 });
 
             });
@@ -378,7 +380,7 @@ const crearRecordActivity = (req = request, res = response) => {
 
 const subirArchivo = (req = request, res = response) => {
 
-    console.log("file: ", req.files);    
+    // console.log("file: ", req.files);    
 
     if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
         res.status(400).json({msg:'No files were uploaded.'});
@@ -395,7 +397,7 @@ const subirArchivo = (req = request, res = response) => {
             return res.status(500).josn({err});
         }
         
-        console.log("se guardo", uploadPath);
+        // console.log("se guardo", uploadPath);
         
     });
     
@@ -413,7 +415,7 @@ const subirArchivo = (req = request, res = response) => {
 
             conn.query(consulta2, (error, respuesta) => { 
 
-                console.log("Respuesta de archivos", respuesta);
+                // console.log("Respuesta de archivos", respuesta);
 
                 res.render('vistaArchivos',{
                     respuesta
@@ -443,12 +445,12 @@ const verActividadesProfe = (req = request, res = response) => {
 
     console.log("llego la activiadad", data);
 
-    const consulta = `SELECT * FROM recordactivity WHERE idActivity = ${data.idActivity} and deliverableActivity is not null`;   
+    const consulta = `SELECT * FROM recordactivity WHERE idActivity = ${data.idActivity} and deliverableActivity is not null and noteActivity is null`;   
 
     req.getConnection((err, conn) => {
         conn.query(consulta, (error, answer) => {
 
-            console.log("recordactivity", answer);
+            // console.log("recordactivity", answer);
 
             
             res.render('verActividadesProfe',{
@@ -463,12 +465,15 @@ const asignarNotas = (req = request, res = response) =>{
     const data = req.body;
     console.log("data de notas", data);
 
-    const consulta = `UPDATE recordactivity SET ecoins = ${data.ecoins}, noteActivity = ${data.noteActivity} WHERE idRecordActivity = ${data.idRecordActivity}`;
+    const consulta = `UPDATE recordactivity SET ecoins = ${data.ecoins}, noteActivity = ${data.noteActivity} WHERE idRecordActivity = ${data.idRecordActivity}; SELECT * FROM recordactivity WHERE idActivity = ${data.idActivity} and deliverableActivity is not null and noteActivity is null`;
 
     req.getConnection((err, conn) => {
         conn.query(consulta, (error, answer) => {
-
-            res.send("se creo");
+            
+            console.log("respuesta answer 1",answer[1])
+            res.render('verActividadesProfe',{
+                actividades : answer[1]
+            }); 
 
         });
     });
