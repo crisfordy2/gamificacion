@@ -62,7 +62,7 @@ class Server {
 
   listen() {
     this.app.listen(this.port, () => {
-      console.log("Servidor corriendo puerto", this.port);
+      console.log("Servidor corriendo puerto:", this.port);
     });
   }
 }
