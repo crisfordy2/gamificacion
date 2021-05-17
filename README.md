@@ -6,9 +6,7 @@ Esta aplicación fue basada en Node, así que para hacer uso del código, tendr�
 ```npm install```. Para entender más <br> acerca de Node, pueden leer su [documentación oficial](https://nodejs.org/es/docs/).
 
 ## Estructuración.
-You will see a few number of components created in the project. This also can help you if you want to download the source code and <br> start coding a similar project, you are going to save time by adapting it (that's what I did) and start creating new things. **Let your mind fly**!
-
-Folder structure described as follow: 
+La organización de las carpetas en una aplicación es importante, por ende, diseñamos una tabla <br> para explicar mejor cómo están creados los módulos y saber dónde se van a ubicar futuros <br> bloques de código, esto además, ayuda a la mantenibilidad de la aplicación. La estructura es la siguiente:
 
 | Carpeta  | Descripción breve |
 | ------------- |:-------------:|
@@ -41,7 +39,7 @@ Los estudiantes podrán matricularse a cursos, y ver las actividades que tienen 
 
 Para los desarrolladores, tenemos este apartado dónde explicaremos ciertos aspectos técnicos a tener <br> en cuenta. 
 
-Para empezar, esta es una aplicación de SSR (Server-Side Rendering). La definición básicamente es que del <br> lado del cliente se realiza tanto cómo las operaciones del servidor  cómo la renderización de las páginas <br> que se verán en el navegador de internet. Si quieres ampliar este conocimiento, puedes visitar este [link](https://elabismodenull.wordpress.com/2017/07/05/vuejs-introduccion-a-server-side-rendering/#:~:text=El%20Server%2Dside%20rendering%20(o,vez%20de%20la%20parte%20cliente.)
+Para empezar, esta es una aplicación de SSR (Server-Side Rendering). La definición básicamente es que del <br> lado del cliente se realiza tanto cómo las operaciones del servidor  cómo la renderización de las páginas <br> que se verán en el navegador de internet. Si quieres ampliar este conocimiento, puedes visitar este [link](https://lemoncode.net/lemoncode-blog/2018/5/13/server-side-rendering-i-conceptos).
 
 Se utiliza cómo base de datos MySQL, por lo que si lo quieren primero testear localmente, se tiene que usar <br> `xampp/wamp`, se utiliza librerías cómo <i>bootstrap, jquery</i> entre otras, aunque están importadas por CDN que <br> nos ahorra la instalación manual.
 
