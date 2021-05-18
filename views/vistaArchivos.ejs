@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Vista de archivos</h1>
+
+    <% if (respuesta.deliverableActivity != "" ) { for (var i=0; i < respuesta.length; i++) { %>
+
+    <form action="/home/descargaArchivos" method="POST">
+      <label><%= respuesta[i].deliverableActivity %></label>
+      <button type="submit">Descargar</button>
+      <input type="hidden" name="deliverableActivity" value="<%= respuesta[i].deliverableActivity %>" />
+    </form>
+    <% } } %>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+----------------------------------------
+Cristian Andres Gomez Monsalve
+----------------------------------------
+	
+cgomez35_UbuntuDesktop
+
+Guest OS: Ubuntu Linux (64-bit)
+Compatibility: ESXi 6.7 virtual machine
+VMware Tools: Yes
+CPUs: 4
+Memory: 2 GB
+Hard disk Capacity: 50 GB
+Network: internet

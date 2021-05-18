@@ -1,15 +1,15 @@
-
-const {Router} = require('express');
-const { usariosGet,
-   usariosPost,
-    usariosPut,
-     usariosPatch,
-      usariosDelete } = require('../controllers.js/usuarios');
+const { Router } = require("express");
+const {
+  usariosGet,
+  usariosPost,
+  usariosPut,
+  usariosPatch,
+  usariosDelete,
+} = require("../controllers/usuarios");
 
 const router = Router();
 
-
-router.get('/a', usariosGet);
+router.get("/a", usariosGet);
 
 /*
 
@@ -19,10 +19,7 @@ router.put('/:id', usariosPut);
 
 router.patch('/', usariosPatch);
 
-router.delete('/', usariosDelete); 
+router.delete('/', usariosDelete);
 */
-
-
-
 
 module.exports = router;
