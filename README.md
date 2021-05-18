@@ -13,7 +13,6 @@ La organización de las carpetas en una aplicación es importante, por ende, dis
 | Controllers      | Aquí es donde se aplica la lógica del código. La conexión de la app con el modelo de negocio.|
 | Models      | Archivo de configuración del servidor. Ejemplo: Conexión a la BD.     |
 | Public      | Archivos que sirven para el diseño de la aplicación. Ejemplo: Estilos/CSS |
-|    Pages    |  Pages/Views that you are going to render in your application.  |
 | Routes | Las rutas que alcanzan nuestra aplicación. Ejemplo: gamificación/login |
 | Views | Páginas actuales de la aplicación que son renderizadas, cómo el landing page. |
 
