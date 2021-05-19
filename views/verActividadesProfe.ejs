@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>verActividadesProfe</title>
-  </head>
-  <body>
-    <h1>datos actividad</h1>
 
-    <% if (actividades.deliverableActivity != "" ) { for (var i=0; i < actividades.length; i++) { %>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>verActividadesProfe</title>
+</head>
 
-    <form action="/home/descargaArchivos" method="POST">
-      <label><%= actividades[i].nameFile %></label>
-      <button type="submit">Descargar</button>
-      <input
-        type="hidden"
-        name="deliverableActivity"
-        value="<%= actividades[i].deliverableActivity %>"
-      />
-    </form>
-    <% } } %>
-  </body>
+<body>
+  <h1>datos actividad</h1>
+
+  <% if (actividades.deliverableActivity != "" ) { for (var i=0; i < actividades.length; i++) { %>
+
+  <form action="/home/descargaArchivos" method="POST">
+    <label><%= actividades[i].nameFile %></label>
+    <button type="submit">Descargar</button>
+    <input type="hidden" name="deliverableActivity" value="<%= actividades[i].deliverableActivity %>" />
+  </form>
+  <% } } %>
+</body>
+
 </html>

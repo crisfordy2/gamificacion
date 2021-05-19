@@ -34,15 +34,18 @@ const mostrarCurso = (req = request, res = response) => {
 
     const data = req.body;
 
-    const consulta = `SELECT * FROM activities WHERE idClass = ${data.idClass}`;
+    const consultas = `SELECT * FROM activities WHERE idClass = ${data.idClass}; SELECT u.idUser, u.nameUser, u.lastNameUser, a.idActivity , a.nameActivity, r.idRecordActivity,COALESCE(r.noteActivity, 0) as noteActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE c.idClass = ${data.idClass} and a.typeActivity = "Individual" and u.idUser = r.idUser order by a.nameActivity asc;`;
 
     req.getConnection((err, conn) => {
         if (err) throw err;
-        conn.query(consulta, (error, answer) => {
+        conn.query(consultas, (error, answer) => {
+
+            console.log("Notas", answer[1]);
 
             res.render("userProfeCursos", {
                 idClass: data.idClass,
-                actividades: answer
+                actividades: answer[0],
+                notas: answer[1]
             });
 
         });
@@ -95,15 +98,16 @@ const crearActividad = (req = request, res = response) => {
                 });
                 
                 usuarios = usuarios.substring(0,usuarios.length - 1);
-                // console.log("usuarios ", usuarios);
+                console.log("usuarios ", usuarios);
 
-                const consulta2 = `INSERT INTO recordactivity (idActivity, idUser) VALUES ${usuarios}; SELECT * FROM activities WHERE idClass = ${data.idClass}`;
+                const consulta2 = `INSERT INTO recordactivity (idActivity, idUser) VALUES ${usuarios}; SELECT * FROM activities WHERE idClass = ${data.idClass}; SELECT u.idUser, u.nameUser, u.lastNameUser, a.idActivity , a.nameActivity, r.idRecordActivity,COALESCE(r.noteActivity, 0) as noteActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE c.idClass = ${data.idClass} and a.typeActivity = "Individual" and u.idUser = r.idUser order by a.nameActivity asc;`;
 
                 conn.query(consulta2, (error, resultado) => {
 
                     res.render("userProfeCursos", {
                         idClass: data.idClass,
-                        actividades: resultado[1]
+                        actividades: resultado[1],
+                        notas: resultado[2]
                     });
                 }); 
 
@@ -282,7 +286,8 @@ const mostrarCursoEstu = (req = request, res = response) => {
     // esta mala la consulta, creo q me hace falta poner que el tipo de usario es estudinate    
 
 
-    const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass, u.idUser, r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual" and r.idUser = ${data.idUser} and r.deliverableActivity is null`;
+    const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass, u.idUser, r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual" and r.idUser = ${data.idUser} and r.deliverableActivity is null; SELECT u.idUser, u.nameUser, u.lastNameUser, a.idActivity , a.nameActivity, r.idRecordActivity, COALESCE(r.noteActivity, 0) as noteActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity 
+    WHERE c.idClass = ${data.idClass} and a.typeActivity = "Individual" and u.idUser = ${data.idUser} and  r.idUser = ${data.idUser}`;
 
 
 
@@ -294,13 +299,12 @@ const mostrarCursoEstu = (req = request, res = response) => {
              * la consulta 1 trae las actividades, pero se necesita saber cuales de esas actividades vienen sin la recordactivity creada
              * si ya esta creada la recordactivity no se muestra la actividad
              */
-            console.log("ANSWER CONSULTA NUEVA: ", answer);
-
-
+            
 
             res.render("cursosEstudiante", {
                 nameClass: data.nameClass,
-                actividades: answer
+                actividades: answer[0],
+                notas: answer[1]
             });
 
         });
@@ -321,8 +325,8 @@ const entregarActividadEstu = (req = request, res = response) => {
 const crearRecordActivity = (req = request, res = response) => {
 
     const data = req.body;
-    console.log("aqui data de activiadad", data);
-    console.log("file: ", req.files); 
+    // console.log("aqui data de activiadad", data);
+    // console.log("file: ", req.files); 
 
     if (!req.files || Object.keys(req.files).length === 0 || !req.files.deliverableActivity) {
         res.status(400).json({msg:'No files were uploaded.'});
@@ -341,28 +345,29 @@ const crearRecordActivity = (req = request, res = response) => {
     
     const remplazo = uploadPath.replace(/\\/g, '/');
     
-    console.log("AQUi remplazo", remplazo);
-    console.log("nombre archivo", req.files.deliverableActivity.name);    
+    // console.log("AQUi remplazo", remplazo);
+    // console.log("nombre archivo", req.files.deliverableActivity.name);    
 
-    // aqui esto hay que arreglarlo por que ya el objkecto record existe, solo se va a editar
+    // se edita la tabla de recordactivity con los registros de los archivos 
     
-    // const consulta = `INSERT INTO recordactivity (deliverableActivity, idActivity, idUser, nameFile) VALUES ("${remplazo}", ${data.idActivity}, ${data.idUser}, "${req.files.deliverableActivity.name}")`;
+    
     const consulta = `UPDATE recordactivity SET deliverableActivity = "${remplazo}", nameFile = "${req.files.deliverableActivity.name}" WHERE idUser = ${data.idUser} and idActivity = ${data.idActivity}`;
-
 
 
     req.getConnection((err, conn) => {
         conn.query(consulta, (error, answer) => {
             if (error) throw error;
 
-            const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass, u.idUser, r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual" and r.idUser = ${data.idUser} and r.deliverableActivity is null`;
+            const consulta1 = `SELECT a.idActivity, a.nameActivity, a.descActivity, a.typeActivity, a.idClass, u.idUser, r.deliverableActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity WHERE u.idUser = ${data.idUser} and c.idClass = ${data.idClass} and a.typeActivity = "Individual" and r.idUser = ${data.idUser} and r.deliverableActivity is null; SELECT u.idUser, u.nameUser, u.lastNameUser, a.idActivity , a.nameActivity, r.idRecordActivity, COALESCE(r.noteActivity, 0) as noteActivity from users u INNER JOIN detailclass d ON u.idUser = d.idUser INNER JOIN class c ON c.idClass = d.idClass INNER JOIN activities a ON c.idClass = a.idClass INNER JOIN recordactivity r ON r.idActivity = a.idActivity 
+            WHERE c.idClass = ${data.idClass} and a.typeActivity = "Individual" and u.idUser = ${data.idUser} and  r.idUser = ${data.idUser}`;
 
             conn.query(consulta1, (error, resultado) => {
                 
 
                 res.render("cursosEstudiante", {
                     nameClass: data.nameClass,
-                    actividades: resultado
+                    actividades: resultado[0],
+                    notas: resultado[1]
                 });
 
             });
@@ -370,14 +375,12 @@ const crearRecordActivity = (req = request, res = response) => {
         });
     });
 
-
-
 };
 
 
 const subirArchivo = (req = request, res = response) => {
 
-    console.log("file: ", req.files);    
+    // console.log("file: ", req.files);    
 
     if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
         res.status(400).json({msg:'No files were uploaded.'});
@@ -394,7 +397,7 @@ const subirArchivo = (req = request, res = response) => {
             return res.status(500).josn({err});
         }
         
-        console.log("se guardo", uploadPath);
+        // console.log("se guardo", uploadPath);
         
     });
     
@@ -412,7 +415,7 @@ const subirArchivo = (req = request, res = response) => {
 
             conn.query(consulta2, (error, respuesta) => { 
 
-                console.log("Respuesta de archivos", respuesta);
+                // console.log("Respuesta de archivos", respuesta);
 
                 res.render('vistaArchivos',{
                     respuesta
@@ -435,35 +438,48 @@ const descargaArchivos = (req = request, res = response) => {
     res.download(deliverableActivity);    
 };
 
+
 const verActividadesProfe = (req = request, res = response) => {
 
     const data = req.body;
 
     console.log("llego la activiadad", data);
 
-    const consulta = `SELECT * FROM recordactivity WHERE idActivity = ${data.idActivity}`
+    const consulta = `SELECT * FROM recordactivity WHERE idActivity = ${data.idActivity} and deliverableActivity is not null and noteActivity is null`;   
 
     req.getConnection((err, conn) => {
         conn.query(consulta, (error, answer) => {
 
-            
-        res.render('verActividadesProfe',{
-            actividades : answer
-        });
+            // console.log("recordactivity", answer);
 
+            
+            res.render('verActividadesProfe',{
+                actividades : answer
+            }); 
+
+        });
+    });
+};
+
+const asignarNotas = (req = request, res = response) =>{
+    const data = req.body;
+    console.log("data de notas", data);
+
+    const consulta = `UPDATE recordactivity SET ecoins = ${data.ecoins}, noteActivity = ${data.noteActivity} WHERE idRecordActivity = ${data.idRecordActivity}; SELECT * FROM recordactivity WHERE idActivity = ${data.idActivity} and deliverableActivity is not null and noteActivity is null`;
+
+    req.getConnection((err, conn) => {
+        conn.query(consulta, (error, answer) => {
+            
+            console.log("respuesta answer 1",answer[1])
+            res.render('verActividadesProfe',{
+                actividades : answer[1]
+            }); 
 
         });
     });
 
 
-};
-
-
-
-
-
-
-
+}
 
 
 
@@ -487,7 +503,8 @@ module.exports = {
     crearRecordActivity,
     subirArchivo,
     descargaArchivos,
-    verActividadesProfe
+    verActividadesProfe,
+    asignarNotas
 };
 
 
