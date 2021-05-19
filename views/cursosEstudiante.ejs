@@ -2,83 +2,71 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/assets/css/estilosCursos.css" />
-    <title>Curso</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/assets/css/estilosCursos.css" />
+  <title>Curso</title>
+  <!-- ============================== -->
+  <!-- Boostrap Installation -->
+  <!-- ============================== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous" />
+  <!-- ============================== -->
+  <!-- Boostrap Installation -->
+  <!-- ============================== -->
 </head>
 
 <body>
-    <header>
-        <div id="header-icon">
-            <p id="titulo"><%= nameClass %></p>
-            <div id="marco-icono">
-                <img src="/images/iconoHomeUser.svg" alt="imagen" id="icono" />
-            </div>
-        </div>
-
-        <!-- div vacio por que se mueve el titulo-->
-        <div id="header-button"></div>
-    </header>
-
-    <div id="navBar">        
-        <button>Privada</button>       
-        <button>Publica</button>        
-        <button>Cerar Empresa</button>
-        <button>Buscar Empresa</button>
+  <header>
+    <div id="header-icon">
+      <p id="titulo"><%= nameClass %></p>
+      <div id="marco-icono">
+        <img src="/images/iconoHomeUser.svg" alt="imagen" id="icono" />
+      </div>
     </div>
 
-    <section id="contenido">
-        <div id="lado-izquierdo">
-            <h2 class="subtitulo">notas</h2>
-            <div>
-                <table>
-                    
-                    <% for (var i=0; i < notas.length; i++) { %>                            
-                        <tr>                        
-                            <th> <%= notas[i].nameActivity %></th>
-                            <th> <%= notas[i].noteActivity %></th>
-                        </tr>
-                    <% } %>
-                        
-                </table>                    
+    <!-- div vacio por que se mueve el titulo-->
+    <div id="header-button"></div>
+  </header>
 
-            </div>
+  <div id="navBar">
+    <button>Privada</button>
+    <button>Publica</button>
+    <button>Cerar Empresa</button>
+    <button>Buscar Empresa</button>
+  </div>
+
+  <section id="contenido">
+    <div id="lado-izquierdo">
+      <h2 class="subtitulo">Notas</h2>
+    </div>
+
+    <div id="lado-derecho">
+      <h2 class="subtitulo">actividades</h2>
+
+      <% if (actividades.nameActivity !="" ) { %> <% for (var i=0; i < actividades.length; i++) { %>
+      <div id="contenedor-actividades">
+        <div id="actividades">
+          <form action="/home/entregarActividadEstu" method="POST">
+            <label> <%= actividades[i].nameActivity %> </label>
+            <br />
+            <label> <%= actividades[i].descActivity %> </label>
+            <br />
+            <button type="submit" class="btn btn-primary" id="cursos">Entregar</button>
+            <input type="hidden" value="<%= actividades[i].idClass %>" name="idClass" />
+            <input type="hidden" value="<%= actividades[i].idActivity %>" name="idActivity" />
+            <input type="hidden" value="<%= actividades[i].nameActivity %>" name="nameActivity" />
+            <input type="hidden" value="<%= actividades[i].descActivity %>" name="descActivity" />
+            <input type="hidden" value="<%= nameClass %>" name="nameClass" />
+          </form>
         </div>
-
-        <div id="lado-derecho">
-            <h2 class="subtitulo">actividades</h2>
-
-            
-            <% if (actividades.nameActivity !="" ) { %>
-                <% for (var i=0; i < actividades.length; i++) { %>
-            <div id="contenedor-actividades">
-                <div id="actividades">
-                    <form action="/home/entregarActividadEstu" method="POST">
-                        <label>
-                            <%= actividades[i].nameActivity %>
-                        </label>
-                        <br>
-                        <label>
-                            <%= actividades[i].descActivity %>
-                        </label>
-                        <br>
-                        <button type="submit" id="cursos">Entregar</button>
-                        <input type="text" value="<%= actividades[i].idClass %>" name="idClass" style="opacity: 0;">
-                        <input type="text" value="<%= actividades[i].idActivity %>" name="idActivity" style="opacity: 0;">
-                        <input type="text" value="<%= actividades[i].nameActivity %>" name="nameActivity" style="opacity: 0;">
-                        <input type="text" value="<%= actividades[i].descActivity %>" name="descActivity" style="opacity: 0;">
-                        <input type="text" value="<%= nameClass %>" name="nameClass" style="opacity: 0;">
-                    </form>
-                </div>
-            </div>
-                <% } %>
-                    <% } %>
-
-        </div>
-
-    </section>
+      </div>
+      <% } %> <% } %>
+    </div>
+  </section>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
+  integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
 
 </html>

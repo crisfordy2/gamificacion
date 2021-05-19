@@ -6,14 +6,14 @@
 }
 
 header {
-    position: fixed;
-    height: 7%;
-    width: 100%;
-    background-color: #097FAC;
-    display: flex;
-    z-index: 1;
-    align-items: center;
-    justify-content:center;
+    /* display: flex; */
+    /* position: fixed; */
+    /* height: 7%; */
+    /* width: 100%; */
+    /* background-color: #097FAC; */
+    /* z-index: 1; */
+    /* align-items: center; */
+    /* justify-content: center; */
 }
 
 #contenido {
@@ -22,15 +22,8 @@ header {
     background-color: #8E939D;
 }
 
-#segmento-inicio {    
-    padding-top: 9vh;    
-}
-
-#header-icon {    
-    display: flex;
-    align-items: center;
-    justify-content:center;       
-    margin-left: 35vw;   
+#segmento-inicio {
+    padding-top: 9vh;
 }
 
 #icono {
@@ -38,36 +31,61 @@ header {
     height: 5vh;
 }
 
-#titulo{
-    font-size: 1.6em;
+#titulo {
+    font-size: 1.5em;
 }
 
-#header-button{
-    /* Si se va a editar el margin left hay que editar tambien el marginleft de #header-icon*/
-    margin-left: 35vw;   
-
-}
-
-#contenedor-cursos{
+#contenedor-cursos {
     display: flex;
-    width: 100%;    
+    width: 100%;
     padding-top: 3vh;
-    justify-content:center;
-    
+    justify-content: center;
+
 }
 
-#cursosTitulo{
+#cursosTitulo {
     font-size: 2em;
 }
 
-#cursos{
+#contenedor-cursosTitulo {
+    display: flex;
+    justify-content: center;
+}
+
+.search-cursos {
+    display: flex;
+    align-items: center;
+    margin-left: auto !important;
+    background: #e26d5c;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: white;
+    box-shadow: 0.25rem 0.25rem 0.25rem #f0b2a8;
+}
+
+.search-cursos__input {
+    margin: 0 0.5rem 0 0.5rem;
+    border: none;
+    outline: none;
+    background: #e26d5c;
+    color: white;
+}
+
+.search-cursos__input::placeholder {
+    color: #f0b2a8;
+}
+
+#header-button {
+    margin-left: auto;
+}
+
+.courses {
     width: 10vw;
     height: 10vh;
     margin: 20px;
     font-size: 1.5em;
 }
 
-#contenedor-cursosTitulo{
-    display: flex;    
-    justify-content:center;
+.logout {
+    margin-left: 1rem;
 }

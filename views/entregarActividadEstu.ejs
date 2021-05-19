@@ -1,31 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>entregarActividadEstu</title>
-</head>
-<body>
-
+    <!-- ============================== -->
+    <!-- Boostrap Installation -->
+    <!-- ============================== -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"
+    />
+    <!-- ============================== -->
+    <!-- Boostrap Installation -->
+    <!-- ============================== -->
+  </head>
+  <body>
     <h1><%= data.nameActivity %></h1>
 
     <h3><%= data.descActivity %></h3>
 
     <form action="/home/crearRecordActivity" method="POST" enctype="multipart/form-data">
-        
-        <input type="file" name="deliverableActivity">
-        <button type="submit">Enviar</button>
-        <input type="text" value="<%= data.idActivity %>" name="idActivity" style="opacity: 0;">
-        <input type="text" value="<%= data.idClass %>" name="idClass" style="opacity: 0;">
-        <input type="text" value="<%= data.nameClass %>" name="nameClass" style="opacity: 0;">
-        <input type="text" name="idUser" id="idUser" style="opacity: 0;">
+      <div class="input-group">
+        <input
+          type="file"
+          class="form-control"
+          id="inputGroupFile04"
+          aria-label="Upload"
+          name="deliverableActivity"
+        />
+        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">
+          Enviar
+        </button>
+      </div>
 
+      <input type="hidden" value="<%= data.idActivity %>" name="idActivity" />
+      <input type="hidden" value="<%= data.idClass %>" name="idClass" />
+      <input type="hidden" value="<%= data.nameClass %>" name="nameClass" />
+      <input type="hidden" name="idUser" id="idUser" />
     </form>
 
-
     <script>
-        document.getElementById("idUser").value = sessionStorage.getItem("id"); 
+      document.getElementById("idUser").value = sessionStorage.getItem("id");
     </script>
-</body>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
+    crossorigin="anonymous"
+  ></script>
 </html>
