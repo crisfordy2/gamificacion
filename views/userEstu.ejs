@@ -1,88 +1,98 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/assets/css/estilosHomeUser.css" />
 
-    <!-- ============================== -->
-    <!-- Font-Awesome -->
-    <!-- ============================== -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-      crossorigin="anonymous"
-    />
-    <!-- ============================== -->
-    <!-- Boostrap Installation -->
-    <!-- ============================== -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-      crossorigin="anonymous"
-    ></script>
-    <!-- ============================== -->
-    <!-- Boostrap Installation -->
-    <!-- ============================== -->
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/assets/css/estilosHomeUser.css" />
 
-    <title>Portal Estudiantes - NOMBREESTUDIANTE</title>
-  </head>
+  <!-- ============================== -->
+  <!-- Font-Awesome -->
+  <!-- ============================== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" />
+  <!-- ============================== -->
+  <!-- Boostrap Installation -->
+  <!-- ============================== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">
+  </script>
+  <!-- ============================== -->
+  <!-- Boostrap Installation -->
+  <!-- ============================== -->
 
-  <body>
-    <header>
-      <!-- Titulo del estudiante -->
-      <div id="header-title">
-        <p id="titulo">Gamificación Estudiante <%= nombre %></p>
-      </div>
+  <title>Portal Estudiantes - NOMBREESTUDIANTE</title>
+</head>
 
-      <!-- <div id="marco-icono">
-                <img src="/images/iconoHomeUser.svg" alt="imagen" id="icono">
-            </div> -->
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">DevOps</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <!-- ============================== -->
-      <!-- Navbar para buscar cursos -->
-      <div class="search-cursos">
-        <form action="/home/buscarCurso" method="POST">
-          <div class="fa fa-search"></div>
-          <input type="text" name="nameClass" class="search-cursos__input" placeholder="Nombre Curso" />
-          <div class="fa fa-times"></div>
-          <!-- <button type="submit">Buscar</button> -->
+        <!-- ESTE ES EL BOTÓN PARA BUSCAR CURSO -->
+        <form action="/home/buscarCurso" method="POST" class="d-flex ms-auto">
+          <input name="nameClass" class="form-control me-2" type="text" placeholder="Nombre del curso"
+            aria-label="nombreCurso">
+          <button class="btn btn-info" type="submit">Buscar</button>
         </form>
+
+        <a href="/home/login" class="btn btn-danger logout">Cerrar sesión</a>
+
       </div>
-      <!-- Navbar para buscar cursos -->
-      <!-- ============================== -->
-    </header>
+    </nav>
+  </header>
+  <!-- ============================== -->
+  <!-- AQUÍ FINALIZA EL HEADER        -->
+  <!-- ============================== -->
 
-    <section id="contenido">
-      <div id="segmento-inicio">
-        <div id="contenedor-cursosTitulo">
-          <h1 id="cursosTitulo">Cursos</h1>
-        </div>
+  <section id="contenido">
 
-        <div id="contenedor-cursos">
-          <% if (objeto.nameClass != "") { %> <% for (var i = 0; i < objeto.length; i++) { %>
-          <form action="/home/mostrarCursoEstu" method="POST">
-            <button type="submit" id="cursos"><%= objeto[i].nameClass %></button>
-            <input type="hidden" value="<%= objeto[i].idClass %>" name="idClass" />
-            <input type="hidden" value="<%= objeto[i].nameClass %>" name="nameClass" />
-            <input type="hidden" value="<%= idUser %>" name="idUser" />
-          </form>
-          <% } %> <% } %>
-        </div>
+    <div id="segmento-inicio">
+      <div id="contenedor-cursosTitulo">
+        <h1 id="cursosTitulo">Cursos de NOMBREESTUDIANTE</h1>
       </div>
-    </section>
 
-    <script>
-      sessionStorage.setItem("id", "<%= idUser %>");
-      sessionStorage.setItem("nombre", "<%= nombre %>");
-    </script>
-  </body>
+      <div id="contenedor-cursos">
+
+        <% if (objeto.nameClass != "") { %> <% for (var i = 0; i < objeto.length; i++) { %>
+        <div class="card">
+
+          <div class="card-header">
+            Cursos
+          </div>
+
+          <div class="card-body">
+            <form action="/home/mostrarCursoEstu" method="POST">
+              <h5 class="card-title">Curso de <%= objeto[i].nameClass %></h5>
+              <p class="card-text">Breve descripción del curso para dar una primera impresión</p>
+              <button type="submit" class="btn btn-primary" id="cursos">Ir a <%= objeto[i].nameClass %></button>
+              <input type="hidden" value="<%= objeto[i].idClass %>" name="idClass" />
+              <input type="hidden" value="<%= objeto[i].nameClass %>" name="nameClass" />
+              <input type="hidden" value="<%= idUser %>" name="idUser" />
+            </form>
+          </div>
+        </div>
+        <% } %> <% } %>
+      </div>
+
+      <!-- AQUI FINALIZA CONTENEDOR CURSOS -->
+    </div>
+
+  </section>
+
+  <script>
+    sessionStorage.setItem("id", "<%= idUser %>");
+    sessionStorage.setItem("nombre", "<%= nombre %>");
+  </script>
+</body>
+
 </html>
