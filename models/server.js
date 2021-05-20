@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
 const myConnection = require("express-myconnection");
+const fileUpload = require("express-fileupload");
 
 class Server {
   constructor() {
@@ -49,6 +50,13 @@ class Server {
     );
 
     this.app.use(express.urlencoded({ extended: false }));
+
+    this.app.use(
+      fileUpload({
+        useTempFiles: true,
+        tempFileDir: "/tmp/",
+      })
+    );
   }
 
   routes() {

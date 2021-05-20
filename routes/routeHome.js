@@ -19,6 +19,7 @@ const {
   subirArchivo,
   descargaArchivos,
   verActividadesProfe,
+  asignarNotas,
 } = require("../controllers/home");
 
 const router = Router();
@@ -60,5 +61,7 @@ router.post("/verActividadesProfe", verActividadesProfe);
 router.post("/subirArchivo", subirArchivo);
 
 router.post("/descargaArchivos", descargaArchivos);
+
+router.post("/asignarNotas", asignarNotas);
 
 module.exports = router;

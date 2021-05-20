@@ -304,8 +304,9 @@ const entregarActividadEstu = (req = request, res = response) => {
 
 const crearRecordActivity = (req = request, res = response) => {
   const data = req.body;
-  // console.log("aqui data de activiadad", data);
-  // console.log("file: ", req.files);
+
+  console.log("file: ", req.files);
+  console.log("Body", req.body);
 
   if (
     !req.files ||
@@ -354,7 +355,8 @@ const crearRecordActivity = (req = request, res = response) => {
 };
 
 const subirArchivo = (req = request, res = response) => {
-  // console.log("file: ", req.files);
+  console.log("file: ", req.files);
+  console.log("Hola");
 
   if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
     res.status(400).json({ msg: "No files were uploaded." });

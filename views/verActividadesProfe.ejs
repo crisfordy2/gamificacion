@@ -9,16 +9,43 @@
 </head>
 
 <body>
-  <h1>datos actividad</h1>
+  <h1>Datos Actividad</h1>
 
-  <% if (actividades.deliverableActivity != "" ) { for (var i=0; i < actividades.length; i++) { %>
+  <div class="contendorDescargas">
+    <% if (actividades.deliverableActivity != "" ) { %>
+    <% for (var i=0; i < actividades.length; i++) { %>
 
-  <form action="/home/descargaArchivos" method="POST">
-    <label><%= actividades[i].nameFile %></label>
-    <button type="submit">Descargar</button>
-    <input type="hidden" name="deliverableActivity" value="<%= actividades[i].deliverableActivity %>" />
-  </form>
-  <% } } %>
+    <form action="/home/descargaArchivos" method="POST">
+      <label><%= actividades[i].nameFile %></label>
+      <button type="submit">Descargar</button>
+      <input type="text" name="deliverableActivity" value="<%= actividades[i].deliverableActivity %>"
+        style="opacity: 0;">
+    </form>
+    <% } %>
+    <% } %>
+  </div>
+
+
+  <div class="contenedorNotas">
+    <% if (actividades.deliverableActivity != "" ) { %>
+    <% for (var i=0; i < actividades.length; i++) { %>
+
+    <form action="/home/asignarNotas" method="POST">
+      <label><%= actividades[i].nameFile %></label>
+      <label for="ecoins">Ecoins:</label>
+      <input type="text" name="ecoins">
+      <label for="noteActivity">Nota:</label>
+      <input type="text" name="noteActivity">
+      <button type="submit">Calificar</button>
+      <input type="text" name="idRecordActivity" value="<%= actividades[i].idRecordActivity %>" style="opacity: 0;">
+      <input type="text" name="idActivity" value="<%= actividades[i].idActivity %>" style="opacity: 0;">
+    </form>
+    <% } %>
+    <% } %>
+
+  </div>
+
+
 </body>
 
 </html>
