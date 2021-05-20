@@ -47,6 +47,10 @@
       Asignar Actividad
     </button>
 
+    <a style="margin-left: 10px;" href="/home/loginUser" class="btn btn-danger">
+      Volver atrás
+    </a>
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -102,17 +106,17 @@
                 <th>Nota</th>
               </tr>
             </thead>
-              <% for (var i=0; i < notas.length; i++) { %>
-                <tbody>
-                  <tr>
-                    <th scope="row"><%= notas[i].nameActivity %></th>
-                    <th><%= notas[i].noteActivity %></th>
-                  </tr>
-                </tbody>
-              <% } %>
+            <% for (var i=0; i < notas.length; i++) { %>
+            <tbody>
+              <tr>
+                <th scope="row"><%= notas[i].nameActivity %></th>
+                <th><%= notas[i].noteActivity %></th>
+              </tr>
+            </tbody>
+            <% } %>
           </table>
 
-      </div>
+        </div>
       </div>
       <div class="col">
         <h2 class="subtitulo">Actividades</h2>

@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 
 <html lang="es">
-  <head>
-    <title>CrearCurso</title>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    <form action="/home/buscarCurso" method="POST">
-      <input type="text" name="nameClass" placeholder="Nombre Curso" />
-      <button type="submit">Buscar</button>
-    </form>
 
-    <h1 style="text-align: center; font-size: 25px">Buscar Cursos</h1>
+<head>
+  <title>CrearCurso</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ============================== -->
+  <!-- Font-Awesome -->
+  <!-- ============================== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" />
+  <!-- ============================== -->
+  <!-- Boostrap Installation -->
+  <!-- ============================== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">
+  </script>
+  <!-- ============================== -->
+  <!-- Boostrap Installation -->
+  <!-- ============================== -->
+</head>
 
-    <form action="/home/mostrarCursosEstu" method="post">
-      <div id="contenedor-cursos">
-        <% if (objeto.nameClass != "") { %> <% for (var i = 0; i < objeto.length; i++) { %>
-        <form action="#" method="POST">
-          <%= objeto[i].nameClass %>
-          <input type="text" name="passClass" />
-          <button type="submit" id="cursos">Añadir</button>
-          <input type="text" value="<%= objeto[i].idClass %>" name="idClass" style="opacity: 0" />
-          <input type="text" id="idUser" name="idUser" style="opacity: 0" />
-          <input type="text" id="nameUser" name="nameUser" style="opacity: 0" />
-        </form>
-        <% } %> <% } %>
-      </div>
-    </form>
+<body>
+  <form action="/home/buscarCurso" method="POST">
+    <input type="text" name="nameClass" placeholder="Nombre Curso" />
+    <button type="submit">Buscar</button>
+  </form>
 
-    <pre style="background-color: white; color: black">
+  <h1 style="text-align: center; font-size: 25px">Buscar Cursos</h1>
+
+  <form action="/home/mostrarCursosEstu" method="post">
+    <div id="contenedor-cursos">
+      <% if (objeto.nameClass != "") { %> <% for (var i = 0; i < objeto.length; i++) { %>
+      <form action="#" method="POST">
+        <%= objeto[i].nameClass %>
+        <input type="text" name="passClass" />
+        <button type="submit" id="cursos">Añadir</button>
+        <input type="text" value="<%= objeto[i].idClass %>" name="idClass" style="opacity: 0" />
+        <input type="text" id="idUser" name="idUser" style="opacity: 0" />
+        <input type="text" id="nameUser" name="nameUser" style="opacity: 0" />
+      </form>
+      <% } %> <% } %>
+    </div>
+  </form>
+
+  <pre style="background-color: white; color: black">
 			<%= mensaje %>
-		</pre
-    >
+		</pre>
 
-    <script>
-      document.getElementById("idUser").value = sessionStorage.getItem("id");
-      document.getElementById("nameUser").value = sessionStorage.getItem("nombre");
-    </script>
-  </body>
+  <script>
+    document.getElementById("idUser").value = sessionStorage.getItem("id");
+    document.getElementById("nameUser").value = sessionStorage.getItem("nombre");
+  </script>
+</body>
+
 </html>
