@@ -48,7 +48,7 @@
     </button>
 
     <a style="margin-left: 10px;" href="/home/loginUser" class="btn btn-danger">
-      Volver atrás
+      Volver hola
     </a>
 
     <!-- Modal -->
@@ -79,6 +79,18 @@
                 <input id="activity-desc" type="text" name="descActivity" class="form-control" />
               </div>
 
+              <div class="form-group">
+
+
+                <label for="typeActivity">Tipo de actividad:</label>
+                <select name="typeActivity">
+                  <option value="Individual">Individual</option>
+                  <option value="Empresa">Empresa</option>
+                </select>
+              </div>
+
+              <input type="hidden" value="<%= idClass %>" name="idClass">
+
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Crear Actividad</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -99,7 +111,40 @@
       <div class="col">
         <h2 class="subtitulo">Notas <span> <%= idClass %> </span></h2>
         <div>
-          <table class="table">
+          <!-- ============================================= -->
+          <!-- ============================================= -->
+          <!-- ============================================= -->
+
+          <table>
+            <tr>
+              <th>Estudiante/Actividad</th>
+              <% let vector = [] %>
+              <% for (var i=0; i < notas.length; i++) { %>
+              <% if ( !vector.includes(notas[i].idActivity)) { %>
+              <% vector.push(notas[i].idActivity) %>
+              <th> <%= notas[i].nameActivity %></th>
+              <% } %>
+              <% } %>
+            </tr>
+
+            <% let vector2 = [] %>
+            <% for (var i=0; i < notas.length; i++) { %>
+            <% if ( !vector2.includes(notas[i].idUser)) { %>
+            <% vector2.push(notas[i].idUser) %>
+            <tr>
+              <th><%= notas[i].nameUser %></th>
+              <% for (var j=0; j < notas.length; j++) { %>
+              <% if ( notas[i].idUser == notas[j].idUser ) { %>
+              <th><%= notas[j].noteActivity %></th>
+              <% } %>
+              <% } %>
+            </tr>
+            <% } %>
+            <% } %>
+
+          </table>
+
+          <!-- <table class="table">
             <thead>
               <tr>
                 <th>Actividad</th>
@@ -114,7 +159,13 @@
               </tr>
             </tbody>
             <% } %>
-          </table>
+          </table> -->
+
+
+          <!-- ============================================= -->
+          <!-- ============================================= -->
+          <!-- ============================================= -->
+
 
         </div>
       </div>
@@ -138,12 +189,12 @@
                 <tr>
                   <th scope="row"><%= actividades[i].idActivity %></th>
                   <th><%= actividades[i].nameActivity %></th>
-                  <th><button type="submit" id="cursos" class="btn btn-primary">Ver</button></th>
                 </tr>
               </tbody>
-              <form action="/home/" method="POST">
+              <form action="/home/verActividadesProfe" method="POST">
                 <input type="hidden" value="<%= actividades[i].idClass %>" name="idClass" />
                 <input type="hidden" value="<%= actividades[i].idActivity %>" name="idActivity" />
+                <th><button type="submit" id="cursos" class="btn btn-primary">Ver</button></th>
               </form>
               <% } } %>
             </table>

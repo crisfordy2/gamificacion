@@ -37,14 +37,28 @@
     <button>Buscar Empresa</button>
   </div>
 
-  <section id="contenido">
+  <section id="contenido-Estud">
     <div id="lado-izquierdo">
       <h2 class="subtitulo">Notas</h2>
+
+      <table>
+
+        <% for (var i=0; i < notas.length; i++) { %>
+        <tr>
+          <th> <%= notas[i].nameActivity %></th>
+          <th> <%= notas[i].noteActivity %></th>
+        </tr>
+        <% } %>
+
+      </table>
+
+
     </div>
 
     <div id="lado-derecho">
       <h2 class="subtitulo">actividades</h2>
 
+      <!-- 
       <% if (actividades.nameActivity !="" ) { %> <% for (var i=0; i < actividades.length; i++) { %>
       <div id="contenedor-actividades">
         <div id="actividades">
@@ -61,8 +75,38 @@
             <input type="hidden" value="<%= nameClass %>" name="nameClass" />
           </form>
         </div>
+        <% } %> <% } %>
+      </div> -->
+
+      <% if (actividades.nameActivity !="" ) { %>
+      <% for (var i=0; i < actividades.length; i++) { %>
+      <div id="contenedor-actividades">
+        <div id="actividades">
+          <form action="/home/entregarActividadEstu" method="POST">
+            <label>
+              <%= actividades[i].nameActivity %>
+            </label>
+            <br>
+            <label>
+              <%= actividades[i].descActivity %>
+            </label>
+            <br>
+            <button type="submit" id="cursos">Entregar</button>
+            <input type="text" value="<%= actividades[i].idClass %>" name="idClass" style="opacity: 0;">
+            <input type="text" value="<%= actividades[i].idActivity %>" name="idActivity" style="opacity: 0;">
+            <input type="text" value="<%= actividades[i].nameActivity %>" name="nameActivity" style="opacity: 0;">
+            <input type="text" value="<%= actividades[i].descActivity %>" name="descActivity" style="opacity: 0;">
+            <input type="text" value="<%= nameClass %>" name="nameClass" style="opacity: 0;">
+          </form>
+        </div>
       </div>
-      <% } %> <% } %>
+      <% } %>
+      <% } %>
+
+
+
+
+
     </div>
   </section>
 </body>

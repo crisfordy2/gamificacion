@@ -73,3 +73,17 @@ header {
 #contenedor-actividades {
   padding: 1.3vh;
 }
+
+#lado-izquierdo {
+  width: 60%;
+}
+
+#lado-derecho {
+  width: 40%;
+}
+
+#contenido-Estud {
+  display: flex;
+  background-color: black;
+  color: white;
+}
