@@ -48,7 +48,7 @@
     </button>
 
     <a style="margin-left: 10px;" href="/home/loginUser" class="btn btn-danger">
-      Volver hola
+      Volver atrás
     </a>
 
     <!-- Modal -->
@@ -115,17 +115,20 @@
           <!-- ============================================= -->
           <!-- ============================================= -->
 
-          <table>
-            <tr>
-              <th>Estudiante/Actividad</th>
-              <% let vector = [] %>
-              <% for (var i=0; i < notas.length; i++) { %>
-              <% if ( !vector.includes(notas[i].idActivity)) { %>
-              <% vector.push(notas[i].idActivity) %>
-              <th> <%= notas[i].nameActivity %></th>
-              <% } %>
-              <% } %>
-            </tr>
+          <table class="table table-light">
+            <thead>
+              <tr>
+                <th>Estudiante/Actividad</th>
+
+                <% let vector = [] %>
+                <% for (var i=0; i < notas.length; i++) { %>
+                <% if ( !vector.includes(notas[i].idActivity)) { %>
+                <% vector.push(notas[i].idActivity) %>
+                <th> <%= notas[i].nameActivity %></th>
+                <% } %>
+                <% } %>
+              </tr>
+            </thead>
 
             <% let vector2 = [] %>
             <% for (var i=0; i < notas.length; i++) { %>
@@ -135,7 +138,7 @@
               <th><%= notas[i].nameUser %></th>
               <% for (var j=0; j < notas.length; j++) { %>
               <% if ( notas[i].idUser == notas[j].idUser ) { %>
-              <th><%= notas[j].noteActivity %></th>
+              <td><%= notas[j].noteActivity %></td>
               <% } %>
               <% } %>
             </tr>
