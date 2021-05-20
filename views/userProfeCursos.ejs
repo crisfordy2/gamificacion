@@ -69,33 +69,12 @@
                 <label for="activity-name" class="col-form-label">Nombre</label>
                 <input type="text" id="activity-name" name="nameActivity" class="form-control" required />
               </div>
+
               <div class="form-group">
                 <label for="activity-desc" class="col-form-label">Descripción</label>
                 <input id="activity-desc" type="text" name="descActivity" class="form-control" />
               </div>
 
-
-              <% if (actividades.nameActivity != "" ) { %>
-              <% for (var i = 0; i < actividades.length; i++) { %>
-              <div id="contenedor-actividades">
-                <div id="actividades">
-                  <form action="/home/verActividadesProfe" method="POST">
-                    <label>
-                      <%= actividades[i].nameActivity %>
-                    </label>
-                    <br>
-                    <label>
-                      <%= actividades[i].descActivity %>
-                    </label>
-                    <br>
-                    <button type="submit" id="cursos">Ver</button>
-                    <input type="hidden" value="<%= actividades[i].idClass %>" name="idClass">
-                    <input type="hidden" value="<%= actividades[i].idActivity %>" name="idActivity">
-                  </form>
-                </div>
-
-                <input type="hidden" value="<%= idClass %>" name="idClass" />
-              </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Crear Actividad</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -115,6 +94,25 @@
     <div class="row">
       <div class="col">
         <h2 class="subtitulo">Notas <span> <%= idClass %> </span></h2>
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Actividad</th>
+                <th>Nota</th>
+              </tr>
+            </thead>
+              <% for (var i=0; i < notas.length; i++) { %>
+                <tbody>
+                  <tr>
+                    <th scope="row"><%= notas[i].nameActivity %></th>
+                    <th><%= notas[i].noteActivity %></th>
+                  </tr>
+                </tbody>
+              <% } %>
+          </table>
+
+      </div>
       </div>
       <div class="col">
         <h2 class="subtitulo">Actividades</h2>
@@ -130,9 +128,7 @@
                   <th scope="col">Descripción</th>
                 </tr>
               </thead>
-              <script>
-                cargarActividades();
-              </script>
+
               <% if (actividades.nameActivity != "" ) { for (var i=0; i < actividades.length; i++) { %>
               <tbody>
                 <tr>
@@ -150,8 +146,7 @@
           </div>
         </div>
       </div>
-      <% } %>
-      <% } %>
+
     </div>
   </section>
 </body>
